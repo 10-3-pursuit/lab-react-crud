@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom"
 
 import { getOneMovie } from "../../api/fetch"
 
-// import "./Show.css";
+import "./Movie.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
 
@@ -41,7 +41,7 @@ function Movie() {
   }, [id]);
 
   return (
-    <section className="movies-show-wrapper">
+    <section className="movies-movie-wrapper">
       <h2>{movie.title}</h2>
       <section className="movies-movie">
         {loadingError ? (
@@ -70,7 +70,7 @@ function Movie() {
             </article>
             <aside>
               <button className="delete" onClick={() => handleDelete(movieId.id)}>
-                Remove show
+                Remove movie
               </button>
               <Link to={`/movies/${id}/edit`}>
                 <button>Edit</button>

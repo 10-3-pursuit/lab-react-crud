@@ -7,6 +7,8 @@ import ErrorMessage from "../errors/ErrorMessage";
 
 import { getAllMovies } from "../../api/fetch";
 
+import "./MoviesIndex.css"
+
 function filterMovies(searchWord, allOfTheMovies) {
   return allOfTheMovies.filter((singleMovie) => {
     return singleMovie.title.toLowerCase().match(searchWord.toLowerCase());
