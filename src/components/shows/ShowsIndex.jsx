@@ -1,13 +1,49 @@
 import { Link } from "react-router-dom";
-
+import { useState, useEffect } from "react";
 import ErrorMessage from "../errors/ErrorMessage";
-
+import { getAllShows } from "../../api/fetch";
 import "./ShowsIndex.css";
+import ShowListing from "./ShowListing";
+
+function filterShows(search, shows) {
+  return shows.filter((show) => {
+    //this .title is coming from the backend api key called 'title'
+    return show.title.toLowerCase().match(search.toLowerCase());
+  });
+}
 
 export default function ShowsIndex() {
+  const [loadingError, setLoadingError] = useState(false);
+  //this will render the shows on the page after the search
+  const [shows, setShows] = useState([]);
+  //this will always be the full set of show data
+  const [allShows, setAllShows] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
+
+  const handleTextChange = (e) => {
+    const inputTitle = e.target.value;
+    const result = inputTitle.length
+      ? filterShows(inputTitle, allShows)
+      : allShows;
+    setSearchTitle(inputTitle);
+    setShows(result);
+  };
+
+  useEffect(() => {
+    getAllShows()
+      .then((data) => {
+        setShows(data);
+        setAllShows(data);
+        setLoadingError(false);
+      })
+      .catch((error) => {
+        setLoadingError(true);
+      });
+  }, []);
+
   return (
     <div>
-      {false ? (
+      {loadingError ? (
         <ErrorMessage />
       ) : (
         <section className="shows-index-wrapper">
@@ -20,13 +56,15 @@ export default function ShowsIndex() {
             Search Shows:
             <input
               type="text"
-              // value={searchTitle}
+              value={searchTitle}
               id="searchTitle"
-              // onChange={handleTextChange}
+              onChange={handleTextChange}
             />
           </label>
           <section className="shows-index">
-            {/* <!-- ShowListing components --> */}
+            {shows.map((show) => {
+              return <ShowListing show={show} key={show.id} />;
+            })}
           </section>
         </section>
       )}
