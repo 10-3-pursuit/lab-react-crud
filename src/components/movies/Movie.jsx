@@ -1,34 +1,34 @@
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react"
+import { Link, useParams } from "react-router-dom"
 
-import { getOneShow } from "../../api/fetch";
+import { getOneMovie } from "../../api/fetch"
 
-import "./Show.css";
+// import "./Show.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
 
-function Show() {
+function Movie() {
   const { id } = useParams();
 
-  const [show, setShow] = useState({});
+  const [movie, setMovie] = useState({});
   const [loadingError, setLoadingError] = useState(false);
 
   const {
-    id:showId,
+    id:movieId,
     duration,
     listedIn,
     country,
     rating,
     dateAdded,
     description
-  } = show;
+  } = movie;
   //will handle on thursday
   function handleDelete() {}
 
   useEffect(() => {
-    getOneShow(id)
+    getOneMovie(id)
       .then((data) => {
-        setShow(data);
+        setMovie(data);
         if (Object.keys(data).length === 0) {
           setLoadingError(true);
         } else {
@@ -41,9 +41,9 @@ function Show() {
   }, [id]);
 
   return (
-    <section className="shows-show-wrapper">
-      <h2>{show.title}</h2>
-      <section className="shows-show">
+    <section className="movies-show-wrapper">
+      <h2>{movie.title}</h2>
+      <section className="movies-movie">
         {loadingError ? (
           <ErrorMessage />
         ) : (
@@ -69,10 +69,10 @@ function Show() {
               <p>{description}</p>
             </article>
             <aside>
-              <button className="delete" onClick={() => handleDelete(showId.id)}>
+              <button className="delete" onClick={() => handleDelete(movieId.id)}>
                 Remove show
               </button>
-              <Link to={`/shows/${id}/edit`}>
+              <Link to={`/movies/${id}/edit`}>
                 <button>Edit</button>
               </Link>
             </aside>
@@ -83,4 +83,4 @@ function Show() {
   );
 }
 
-export default Show;
+export default Movie
