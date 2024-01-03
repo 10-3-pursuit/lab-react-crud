@@ -24,7 +24,7 @@ export default function ShowsIndex() {
   const [searchTitle, setSearchTitle] = useState("");
   const [loadingError, setLoadingError] = useState(false)
 
-  function handleTextChange(event) {inputTitle
+  function handleTextChange(event) {
     const inputTitle = event.target.value;
     // console.log(title)
     const result = inputTitle.length ? filterShows(inputTitle, allShows) : allShows;
@@ -47,7 +47,7 @@ export default function ShowsIndex() {
 
   return (
     <div>
-      {console.log(shows)}
+      {/* {console.log(shows)} */}
       {loadingError ? (
         <ErrorMessage />
       ) : (
