@@ -62,3 +62,15 @@ export function createMovie(movie) {
     return response.json();
   });
 }
+
+// Update
+export function updateMovie(id, movie) {
+  const options = {
+    method: "PUT",
+    body: JSON.stringify(movie),
+    headers: { "Content-Type": "application/json" },
+  };
+  return fetch(`${URL}/movie/${id}`, options).then((response) => {
+    return response.json();
+  });
+}
