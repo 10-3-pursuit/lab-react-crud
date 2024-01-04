@@ -1,21 +1,69 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
+// const URL = import.meta.env.VITE_BASE_API_URL
+
+import { getOneShow, destroyShow } from "../../api/fetch";
 import "./Show.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
 
+
 function Show() {
+  const { id } = useParams();
+  const navigate = useNavigate()
+  
   const [show, setShow] = useState({});
   const [loadingError, setLoadingError] = useState(false);
 
-  const { id } = useParams();
+  const {
+    id: showId,
+    title,
+    duration,
+    listedIn, 
+    country, 
+    rating, 
+    dateAdded, 
+    description,
+  } = show
 
-  function handleDelete() {}
+  // function handleDelete(){
+  //   const options = { method: "DELETE" }
+  //   fetch(`${URL}/shows/${id}`, options)
+  //   .then(()=> navigate("/shows"))
+  //   .catch(error => {
+  //     console.error(error)
+  //     setLoadingError(true)
+  //   })
+  // }
+
+  function handleDelete() {
+    destroyShow(id)
+      .then(() => navigate("/shows"))
+      .catch((error) => {
+        console.error(error);
+        setLoadingError(true);
+      });
+  }
+  
+  useEffect(() => {
+    getOneShow(id)
+      .then((data) => {
+        setShow(data);
+        if (Object.keys(data).length === 0) {
+          setLoadingError(true);
+        } else {
+          setLoadingError(false);
+        }
+      })
+      .catch((error) => {
+        setLoadingError(true);
+      });
+  }, [id])
 
   return (
     <section className="shows-show-wrapper">
-      <h2>{show.title}</h2>
+      <h2>{title}</h2>
       <section className="shows-show">
         {loadingError ? (
           <ErrorMessage />
@@ -23,29 +71,29 @@ function Show() {
           <>
             <aside>
               <p>
-                <span>Duration:</span> {show.duration}
+                <span>Duration:</span> {duration}
               </p>
               <p>
-                <span>Listed Categories:</span> {show.listedIn}
+                <span>Listed Categories:</span> {listedIn}
               </p>
               <p>
-                <span>Country:</span> {show.country}
+                <span>Country:</span> {country}
               </p>
               <p>
-                <span>Rating:</span> {show.rating}
+                <span>Rating:</span> {rating}
               </p>
               <p>
-                <span>Date Added:</span> {show.dateAdded}
+                <span>Date Added:</span> {dateAdded}
               </p>
             </aside>
             <article>
-              <p>{show.description}</p>
+              <p>{description}</p>
             </article>
             <aside>
-              <button className="delete" onClick={() => handleDelete(show.id)}>
+              <button className="delete" onClick={handleDelete}>
                 Remove show
               </button>
-              <Link to={`/shows/${id}/edit`}>
+              <Link to={`/shows/${showId}/edit`}>
                 <button>Edit</button>
               </Link>
             </aside>
