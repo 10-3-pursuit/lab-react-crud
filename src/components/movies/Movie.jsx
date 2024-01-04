@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 
-import { getOneMovie } from "../../api/fetch"
+// const URL = import.meta.env.VITE_BASE_API_URL
+
+import { getOneMovie, destroyMovie } from "../../api/fetch"
 
 import "./Movie.css";
 
@@ -9,6 +11,7 @@ import ErrorMessage from "../errors/ErrorMessage";
 
 function Movie() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [movie, setMovie] = useState({});
   const [loadingError, setLoadingError] = useState(false);
@@ -23,7 +26,16 @@ function Movie() {
     description
   } = movie;
   //will handle on thursday
-  function handleDelete() {}
+  function handleDelete() {
+    // const options = { method: "DELETE" };
+    // fetch(`${URL}/movies/${id}`, options)
+    destroyMovie(id)
+      .then(() => navigate("/movies"))
+      .catch(error =>{
+        console.log(error);
+        setLoadingError(true);
+      })
+  }
 
   useEffect(() => {
     getOneMovie(id)
@@ -69,7 +81,7 @@ function Movie() {
               <p>{description}</p>
             </article>
             <aside>
-              <button className="delete" onClick={() => handleDelete(movieId.id)}>
+              <button className="delete" onClick={handleDelete}>
                 Remove movie
               </button>
               <Link to={`/movies/${id}/edit`}>

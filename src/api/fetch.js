@@ -1,15 +1,26 @@
+
 const URL = import.meta.env.VITE_BASE_API_URL
 
 // Shows
 
 // Create
 export function createShow(show) {
-  return;
+  const options = {
+    method: "POST",
+    body: JSON.stringify(show),
+    headers: { "Content-Type": "application/json" },
+  };
+
+  return fetch(`${URL}/shows/`, options).then((response) => { 
+    return response.json();
+  });
 }
 
 // Delete
 export function destroyShow(id) {
-  return;
+  const options = { method: "DELETE" };
+  
+  return fetch(`${URL}/shows/${id}`, options);
 }
 
 // Index/Get all
@@ -24,19 +35,37 @@ export function getOneShow(id) {
 
 // Update
 export function updateShow(id, show) {
-  return;
+    const options = {
+      method: "PUT",
+      body: JSON.stringify(show),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    return fetch(`${URL}/shows/${id}`, options).then((response) => {
+        return response.json();
+      });
 }
 
 // Movies
 
 // Create
 export function createMovie(movie) {
-  return;
+  const options = {
+    method: "POST",
+    body: JSON.stringify(movie),
+    headers: { "Content-Type": "application/json" },
+  };
+
+  return fetch(`${URL}/movies/`, options).then((response) => { 
+    return response.json();
+  });
 }
 
 // Delete
 export function destroyMovie(id) {
-  return;
+  const options = { method: "DELETE" };
+  
+  return fetch(`${URL}/movies/${id}`, options);
 }
 
 // Index/Get all
@@ -51,5 +80,13 @@ export function getOneMovie(id) {
 
 // Update
 export function updateMovie(id, movie) {
-  return;
+  const options = {
+    method: "PUT",
+    body: JSON.stringify(movie),
+    headers: { "Content-Type": "application/json" },
+  };
+
+  return fetch(`${URL}/movies/${id}`, options).then((response) => {
+      return response.json();
+    });
 }
