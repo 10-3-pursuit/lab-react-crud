@@ -1,4 +1,4 @@
-.show {
+.movie {
      border: 1px solid var(--primary);
      border-radius: 3px;
      color: var(--gray);
@@ -7,33 +7,33 @@
      padding: 10px 25px;
    }
    
-   .show a {
+   .movie a {
      border-bottom: 1px solid var(--primary);
      color: var(--primary);
      text-decoration: none;
    }
    
-   .show .title {
+   .movie .title {
      text-decoration: none;
      font-variant: small-caps;
      margin-bottom: 0;
    }
    
-   .show .description {
+   .movie .description {
      font-size: 14px;
    }
    
-   .show .details {
+   .movie .details {
      border-top: 1px solid var(--primary);
      padding-top: 10px;
    }
    
-   .show .details p {
+   .movie .details p {
      font-size: 12px;
      margin: 0 0 5px;
    }
    
-   .show .details span {
+   .movie .details span {
      font-weight: bold;
    }
    

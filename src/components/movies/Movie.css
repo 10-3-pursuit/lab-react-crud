@@ -1,9 +1,9 @@
-.shows-show-wrapper {
+.movies-show-wrapper {
      margin: 0 auto;
      width: 70%;
    }
    
-   .shows-show {
+   .movies-show {
      border: 1px solid var(--primary);
      border-radius: 3px;
      color: var(--gray);
@@ -11,16 +11,16 @@
      grid-template-rows: auto 1fr auto;
    }
    
-   .shows-show article {
+   .movies-show article {
      padding: 10px 25px;
    }
    
-   .shows-show aside {
+   .movies-show aside {
      background: var(--primary);
      color: var(--light);
    }
    
-   .shows-show aside p {
+   .movies-show aside p {
      display: inline-block;
      font-size: 14px;
      margin: 10px 25px;
@@ -28,11 +28,11 @@
      width: auto;
    }
    
-   .shows-show aside span {
+   .movies-show aside span {
      font-weight: bold;
    }
    
-   .shows-show aside button {
+   .movies-show aside button {
      background: none;
      border: none;
      color: var(--light);
@@ -41,7 +41,7 @@
      text-decoration: underline;
    }
    
-   .shows-show aside button:hover {
+   .movies-show aside button:hover {
      text-decoration: none;
    }
    
