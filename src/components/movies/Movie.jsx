@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { getOneMovie } from "../../api/fetch";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { getOneMovie, destroyMovie } from "../../api/fetch";
 import "../shows/Show.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
@@ -10,8 +10,16 @@ function Movie() {
   const [loadingError, setLoadingError] = useState(false);
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  function handleDelete() {}
+  function handleDelete() {
+    destroyMovie(id)
+      .then(() => navigate("/movies"))
+      .catch((error) => {
+        console.error(error);
+        setLoadingError(true);
+      });
+  }
 
   useEffect(() => {
     getOneMovie(id)
@@ -24,6 +32,7 @@ function Movie() {
         }
       })
       .catch((error) => {
+        console.error(error);
         setLoadingError(true);
       });
   }, [id]);
