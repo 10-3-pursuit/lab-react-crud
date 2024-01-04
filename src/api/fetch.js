@@ -3,12 +3,20 @@ const URL = import.meta.env.VITE_BASE_API_URL
 
 // Create
 export function createShow(show) {
-  return;
+  const options = {
+    method: "POST",
+    body: JSON.stringify(show),
+    headers: { "Content-Type": "application/json" },
+  };
+  return fetch(`${URL}/shows/`, options).then((response) => {
+    return response.json();
+  });
 }
 
 // Delete
 export function destroyShow(id) {
-  return;
+  const options = { method: "DELETE" };
+  return fetch(`${URL}/shows/${id}`, options);
 }
 
 // Index/Get all

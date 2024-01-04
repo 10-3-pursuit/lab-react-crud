@@ -17,7 +17,6 @@ function App() {
     <div className="wrapper">
       <Nav />
       <Routes>
-
         <Route path="/" element={<Home />} />
 
         <Route path="/shows" >
@@ -31,7 +30,6 @@ function App() {
           <Route index element={<MoviesIndex />} />
           <Route path=":id" element={<Movie />} />
         </Route>
-
       </Routes>
       <Footer />
     </div>
