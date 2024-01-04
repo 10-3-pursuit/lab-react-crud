@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
-import { getOneMovie } from "../../api/fetch";
+import { getOneMovie, destroyMovie } from "../../api/fetch";
 import "../shows/Show.css"
 
 import ErrorMessage from "../errors/ErrorMessage";
 
 const Movie = () => {
     const { id } = useParams()
+    const navigate = useNavigate()
 
     const [movie, setMovie] = useState({});
     const [loadingError, setLoadingError] = useState(false);
@@ -22,6 +23,15 @@ const Movie = () => {
         dateAdded, 
         description,
       } = movie
+
+      function handleDelete() {
+        destroyMovie(id)
+          .then(() => navigate("/movies"))
+          .catch((error) => {
+            console.error(error);
+            setLoadingError(true);
+          });
+      }
 
       useEffect(() => {
         getOneMovie(id)
@@ -67,6 +77,14 @@ const Movie = () => {
             <article>
               <p>{description}</p>
             </article>
+            <aside>
+              <button className="delete" onClick={handleDelete}>
+                Remove movie
+              </button>
+              <Link to={`/movies/${movieId}/edit`}>
+                <button>Edit</button>
+              </Link>
+            </aside>
           </>
         )}
       </section>
