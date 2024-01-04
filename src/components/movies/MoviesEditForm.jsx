@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams} from "react-router-dom"
 import "./MoviesForm.css";
+import { getOneMovie } from "../../api/fetch";
+
+const URL = import.meta.env.VITE_BASE_API_URL;
 
 export default function MoviesForm() {
+  
+  const {id} = useParams();
+  const navigate = useNavigate();
+
   const [movie, setMovie] = useState({
     type: "",
     title: "",
@@ -14,7 +22,19 @@ export default function MoviesForm() {
     releaseYear: "",
   });
 
-  function handleSubmit(event) {}
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const options = {
+      method: "PUT",
+      body: JSON.stringify(movie),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch(`${URL}/shows/${id}`, options)
+      .then((response) => response.json())
+      .then(() => navigate(`/movies/${id}`));
+  }
 
   function handleTextChange(event) {
     setMovie({
@@ -22,6 +42,16 @@ export default function MoviesForm() {
       [event.target.id]: event.target.value,
     });
   }
+
+  useEffect(() => {
+    getOneMovie(id)
+      .then((response) => {
+        setShow(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
 
   return (
     <form onSubmit={handleSubmit}>

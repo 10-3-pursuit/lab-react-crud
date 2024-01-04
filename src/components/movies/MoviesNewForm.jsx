@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const URL = import.meta.env.VITE_BASE_API_URL;
 
 import "./MoviesForm.css";
 
 export default function MoviesForm() {
+  const navigate = useNavigate();
+
   const [movie, setMovie] = useState({
     type: "",
     title: "",
@@ -15,7 +20,22 @@ export default function MoviesForm() {
     releaseYear: "",
   });
 
-  function handleSubmit(event) {}
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify(movie),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch(`${URL}/movies/`, options)
+      .then((response) => response.json())
+      .then((response) => {
+        navigate(`/movies/${response.id}`);
+      })
+      .catch((error) => console.error(error));
+  }
 
   function handleTextChange(event) {
     setMovie({

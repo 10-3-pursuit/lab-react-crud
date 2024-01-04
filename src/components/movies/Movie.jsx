@@ -1,18 +1,28 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { getOneMovie } from "../../api/fetch";
 import "./Movie.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
 
+const URL = import.meta.env.VITE_BASE_API_URL;
 
 function Movie() {
   const [movie, setMovie] = useState({});
   const [loadingError, setLoadingError] = useState(false);
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  function handleDelete() {}
+  function handleDelete() {
+    const options = { method: "DELETE" };
+    fetch(`${URL}/movies/${id}`, options)
+    .then(() => navigate("/movies"))
+    .catch((error) => {
+      console.error(error);
+      setLoadingError(true);
+    });
+  }
 
   useEffect(() => {
     getOneMovie(id)
