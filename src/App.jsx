@@ -14,6 +14,7 @@ function App() {
     <div className="wrapper">
       <Nav />
       <Routes>
+        {/* Show Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/shows">
           {/* /shows */}
@@ -24,6 +25,10 @@ function App() {
           <Route path=":id" element={<Show />} />
           {/* /shows/:id/edit */}
           <Route path=":id/edit" element={<ShowsEditForm />} />
+        </Route>
+        {/* Movies Routes */}
+        <Route path="/movies">
+          <Route index element={<MoviesIndex />} />
         </Route>
       </Routes>
       <Footer />
