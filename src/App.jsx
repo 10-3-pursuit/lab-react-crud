@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Components
@@ -16,10 +15,14 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/shows" >
+        <Route path="/shows">
+          {/* /shows */}
           <Route index element={<ShowsIndex />} />
-          <Route path='new' element={<ShowsNewForm />} />
+          {/* /shows/new */}
+          <Route path="new" element={<ShowsNewForm />} />
+          {/* /shows/:id */}
           <Route path=":id" element={<Show />} />
+          {/* /shows/:id/edit */}
           <Route path=":id/edit" element={<ShowsEditForm />} />
         </Route>
       </Routes>

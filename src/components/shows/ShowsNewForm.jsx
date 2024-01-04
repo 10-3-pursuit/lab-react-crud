@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const URL = import.meta.env.VITE_BASE_API_URL;
 
 import "./ShowsForm.css";
 
 export default function ShowsForm() {
+  const navigate = useNavigate();
+
   const [show, setShow] = useState({
     type: "",
     title: "",
@@ -15,7 +20,22 @@ export default function ShowsForm() {
     releaseYear: "",
   });
 
-  function handleSubmit(event) {}
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify(show),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch(`${URL}/shows/`, options)
+      .then((response) => response.json())
+      .then((response) => {
+        navigate(`/shows/${response.id}`);
+      })
+      .catch((error) => console.error(error));
+  }
 
   function handleTextChange(event) {
     setShow({
