@@ -50,3 +50,15 @@ export function destroyMovie(id) {
   const options = { method: "DELETE" };
   return fetch(`${URL}/movies/${id}`, options);
 }
+
+// Create
+export function createMovie(movie) {
+  const options = {
+    method: "POST",
+    body: JSON.stringify(movie),
+    headers: { "Content-Type": "application/json" },
+  };
+  return fetch(`${URL}/movies/`, options).then((response) => {
+    return response.json();
+  });
+}
