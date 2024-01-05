@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+const URL = import.meta.env.VITE_BASE_API_URL;
 
 // Forms usually need their own useState
 const MoviesNewForm = () => {
@@ -15,7 +15,22 @@ const MoviesNewForm = () => {
     releaseYear: "",
   });
 
-  function handleSubmitMovie () {};
+  function handleSubmitMovie (event) {
+    event.preventDefault();
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify(movie),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch(`${URL}/movies/`, options)
+      .then((response) => response.json())
+      .then((response) => {
+        navigate(`/movies/${response.id}`);
+      })
+      .catch((error) => console.error(error));
+  };
   function handleTextChangeMovie () {};
 
   return (
@@ -24,7 +39,7 @@ const MoviesNewForm = () => {
       <input
         type="text"
         id="title"
-        value={show.title}
+        value={movie.title}
         onChange={handleTextChangeMovie}
       />
 
