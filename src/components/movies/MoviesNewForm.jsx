@@ -83,7 +83,7 @@ const MoviesNewForm = () => {
         type="text"
         id="listedIn"
         value={movie.listedIn}
-        onChange={handleTextChange}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="duration">Duration</label>
@@ -91,7 +91,7 @@ const MoviesNewForm = () => {
         type="text"
         id="duration"
         value={movie.duration}
-        onChange={handleTextChange}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="releaseYear">Release Year</label>
@@ -99,7 +99,7 @@ const MoviesNewForm = () => {
         type="text"
         id="releaseYear"
         value={movie.releaseYear}
-        onChange={handleTextChange}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="country">Country</label>
@@ -107,7 +107,7 @@ const MoviesNewForm = () => {
         type="text"
         id="country"
         value={movie.country}
-        onChange={handleTextChange}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="dateAdded">Date added:</label>
@@ -115,7 +115,7 @@ const MoviesNewForm = () => {
         type="text"
         id="dateAdded"
         value={movie.dateAdded}
-        onChange={handleTextChange}
+        onChange={handleTextChangeMovie}
       />
 
       <br />
