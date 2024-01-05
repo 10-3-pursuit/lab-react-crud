@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const MoviesListing = ({ movie }) => {
+const MovieListing = ({ movie }) => {
   return (
     <article className="show">
       <h3 className="title">
@@ -20,4 +20,4 @@ const MoviesListing = ({ movie }) => {
   );
 }
 
-export default MoviesListing
+export default MovieListing;
