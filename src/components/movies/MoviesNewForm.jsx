@@ -36,7 +36,13 @@ const MoviesNewForm = () => {
       .catch((error) => console.error(error));
   };
 
-  function handleTextChangeMovie () {};
+  function handleTextChangeMovie (event) {
+    setMovie({
+        // make shallow copy of data with spread op
+        ...movie,
+        [event.target.id] : event.target.value, 
+    });
+  };
 
   return (
     <form onSubmit={handleSubmitMovie}>
