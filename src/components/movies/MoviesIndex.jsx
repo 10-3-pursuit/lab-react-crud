@@ -13,7 +13,10 @@ export default function MoviesIndex() {
   const [movies, setMovies] = useState([]); // to get movie data
   const [earWaxError, setEarWaxError] = useState(false); //toggle whether or not earwax is false (ERROR!!)
   const [allEarWax, setAllEarWax] = useState([]); // initial state is no earwax in array
-  const [seachEarWaxTitle, setEarWaxTitle] = useState(""); // for search bar input
+  const [searchEarWaxTitle, setSearchEarWaxTitle] = useState(""); // for search bar input
+
+  const handleTextChangeEarWax = () => {};
+
 
   return (
   <div>
@@ -22,7 +25,18 @@ export default function MoviesIndex() {
       <button>
       <Link to="/movies/new">Add a new movie</Link>
       </button>
-
+      <br />
+      {/* create HTML for searchbar */}
+      <label htmlFor="searchEarWaxTitle">
+        Search Movies:
+        {/* type is text bc string, value is the useState, id must match useState name, add the onChange fx */}
+        <input
+          type="text"
+          value={searchEarWaxTitle}
+          id="seachEarWaxTitle"
+          onChange={handleTextChangeEarWax}
+        />
+      </label>
     <section className="shows-index">
       {movies.map((movie) => {
         return <MovieListing movie={movie} key={movie.id} />;
