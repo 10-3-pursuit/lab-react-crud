@@ -8,7 +8,13 @@ import MovieListing from "./MovieListing";
 export default function MoviesIndex() {
   // create listing component to import to see movie list when clicking button "movie list" (must map through array of objects)
   // useState to change view of movieListing
-  const [movies, setMovies] = useState([]);
+  // create handleTextChangeMovies with useState for the text change for searchbar
+
+  const [movies, setMovies] = useState([]); // to get movie data
+  const [earWaxError, setEarWaxError] = useState(false); //toggle whether or not earwax is false (ERROR!!)
+  const [allEarWax, setAllEarWax] = useState([]); // initial state is no earwax in array
+  const [seachEarWaxTitle, setEarWaxTitle] = useState(""); // for search bar input
+
   return (
   <div>
     <section className="shows-index-wrapper">
