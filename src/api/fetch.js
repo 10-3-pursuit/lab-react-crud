@@ -1,5 +1,6 @@
-// Shows
-const URL = import.meta.env.VITE_BASE_API_URL
+// ------ Shows ------
+const URL = import.meta.env.VITE_BASE_API_URL // API URL to CRUD data from server side aka backend using GUI aka frontend
+
 // Create
 export function createShow(show) {
   const options = {
@@ -40,7 +41,7 @@ export function updateShow(id, show) {
   });
 }
 
-// Movies
+// ------ Movies ------
 // Get all movies
 export function getAllMovies() {
   return fetch(`${URL}/movies`).then((response) => response.json());
