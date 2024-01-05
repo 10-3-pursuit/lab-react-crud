@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react"
 import { useEffect } from "react";
 
+import "./MoviesIndex.css"
+
 import MovieListing from "./MovieListing";
 import ErrorMessage from "../errors/ErrorMessage";
 // Top of file
