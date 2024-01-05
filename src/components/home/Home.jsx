@@ -6,7 +6,9 @@ export default function Home() {
       <img src={hero} alt="film" />
       <p>
         Photo by{" "}
-        <a href="https://unsplash.com/@dmjdenise?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+        <a href="https://unsplash.com/@dmjdenise?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          target= "_blank">
+
           Denise Jans
         </a>{" "}
         on{" "}
