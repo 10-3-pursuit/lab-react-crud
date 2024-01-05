@@ -2,7 +2,14 @@
 const URL = import.meta.env.VITE_BASE_API_URL
 // Create
 export function createShow(show) {
-  return;
+  const options = {
+    method: "POST",
+    body: JSON.stringify(show),
+    headers: { "Content-Type": "application/json" },
+  };
+  return fetch(`${URL}/shows/${id}`, options).then((response) => {
+    return response.json();
+  });
 }
 
 // Delete
@@ -21,9 +28,16 @@ export function getOneShow(id) {
   return fetch(`${URL}/shows/${id}`).then((response) => response.json());
 }
 
-// Update
+// Update (same as creatShow except method is "PUT" instead of "POST")
 export function updateShow(id, show) {
-  return;
+  const options = {
+    method: "PUT",
+    body: JSON.stringify(show),
+    headers: { "Content-Type": "application/json" },
+  };
+  return fetch(`${URL}/shows/${id}`, options).then((response) => {
+    return response.json();
+  });
 }
 
 // Movies
