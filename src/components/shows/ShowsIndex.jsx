@@ -54,7 +54,7 @@ export default function ShowsIndex() {
             <Link to="/shows/new">Add a new show</Link>
           </button>
           <br />
-          <label htmlFor="searchTitle">
+          <label htmlFor="searchTitle" />
             Search Shows:
             <input
               type="text"
@@ -62,7 +62,7 @@ export default function ShowsIndex() {
               id="searchTitle"
               onChange={handleTextChange}
             />
-          </label>
+          {/* </label> */}
           <section className="shows-index">
             {shows.map((show) => {
               return <ShowListing show={show} key={show.id} />;
