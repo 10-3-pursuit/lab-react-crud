@@ -33,10 +33,10 @@ function handleTextChange(event) {
   setMovies(result);
 }
 useEffect(() => {
-  getAllMovie()
+  getAllMovies()
     .then((data) => {
-      setAllMovie(data);
-      setMovie(data);
+      setAllMovies(data);
+      setMovies(data);
       setLoadingError(false);
     })
     .catch((error) => {
@@ -61,7 +61,7 @@ return (
   type="text"
   value={searchTitle}
 id="searchTitle"
-onChange={handleTextCahnge}
+onChange={handleTextChange}
   />
 </label>
 <section className="movies-index">
