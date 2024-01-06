@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"; // to navigate views without refreshing page
 import ErrorMessage from "../errors/ErrorMessage"; // use as component as prop for error message handling
 import { getAllMovies } from "../../api/fetch";
-
+import "./ShowsForm.css"; // css used for shows display also can be used for movies display
 import { useEffect, useState } from "react";
 import MovieListing from "./MovieListing";
 

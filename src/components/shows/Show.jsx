@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom"; // why is it in here?
+import { Link, useParams, useNavigate } from "react-router-dom"; // why is it in here? answer: these are hooks and components from React Router, used for routing in a React application. Link is used to create links to navigate between pages, useParams to access URL parameters, and useNavigate to programmatically navigate the user.
 
 const URL = import.meta.env.VITE_BASE_API_URL;
 
@@ -15,9 +15,9 @@ function Show() {
 
   const [show, setShow] = useState({});
   const [loadingError, setLoadingError] = useState(false);
-  // destructuring the show state so that we can be DRY in our JSX
+  // destructuring the show state so that we can be DRY in our JSX - Destructuring show: Extracts properties like duration, listedIn, etc., from the show state for easier access in the JSX
   const {
-    // because there are two id variable, we will give this id key a new name, an alias, called showId
+    // because there are two id variables, we will give this id key a new name, an alias, called showId
     id: showId,
     duration,
     listedIn,
@@ -84,7 +84,7 @@ function Show() {
             </article>
             <aside>
               <button className="delete" onClick={handleDelete}>
-                {/* not sure why it's not <button className="delete" onClick={() => handleDelete(showId)}> on line above */}
+                {/* not sure why it's not <button className="delete" onClick={() => handleDelete(showId)}> on line above. Answer: The handleDelete function does not require showId because it uses the id from the URL parameters (useParams()), which is the identifier of the show to delete. */}
                 Remove show
               </button>
               <Link to={`/shows/${id}/edit`}>

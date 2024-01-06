@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import "./ShowsForm.css"; // css used for shows display also can be used for movies display
 
 const MovieListing = ({ movie }) => {
   return (

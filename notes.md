@@ -1,3 +1,5 @@
+# Why are these components necessary to create this CRUD App?
+
 ## Why is useNavigate needed?
 
 `useNavigate` from "react-router-dom" is used as a hook to navigate programmatically in a React application. It is particularly relevant in the context of form submission and handling the response of that submission. Let's break down its usage:
