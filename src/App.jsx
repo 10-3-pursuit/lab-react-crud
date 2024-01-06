@@ -22,16 +22,43 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/shows" >
+        <Route path="/shows" />
           <Route index element={<ShowsIndex />} />
           <Route path='new' element={<ShowsNewForm />} />
           <Route path=":id" element={<Show />} />
           <Route path=":id/edit" element={<ShowsEditForm />} />
+
+          <Route path="/movies" >
+          <Route index element={<MoviesIndex />} />
+          <Route path='new' element={<MoviesNewForm />} />
+          <Route path=":id" element={<Movie />} />
+          <Route path=":id/edit" element={<MoviesEditForm />} />
+
         </Route>
       </Routes>
       <Footer />
     </div>
   );
 }
+
+
+
+
+{/* //   return (
+//     <div className="wrapper">
+//       <Nav />
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/shows" >
+//           <Route index element={<ShowsIndex />} />
+//           <Route path='new' element={<ShowsNewForm />} />
+//           <Route path=":id" element={<Show />} />
+//           <Route path=":id/edit" element={<ShowsEditForm />} />
+//         </Route>
+//       </Routes>
+//       <Footer />
+//     </div>
+//   );
+// } */}
 
 export default App;
