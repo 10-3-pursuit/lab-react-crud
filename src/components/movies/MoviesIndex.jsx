@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"; // to navigate views without refreshing page
-import ErrorMessage from "../errors/ErrorMessage";
+import ErrorMessage from "../errors/ErrorMessage"; // use as component as prop for error message handling
 import { getAllMovies } from "../../api/fetch";
 
 import { useEffect, useState } from "react";
@@ -26,7 +26,13 @@ export default function MoviesIndex() {
   const [allEarWax, setAllEarWax] = useState([]); // initial state is no earwax in array
   const [searchEarWaxTitle, setSearchEarWaxTitle] = useState(""); // for search bar input
 
-  const handleTextChangeEarWax = () => {};
+  const handleTextChangeEarWax = (event) => { // use filterMovies fx as callback fx to handle search bar input. The parameters are the event listener and useState - not the set one, the other one (the one that holds the current state value for component)
+    const title = event.target.value; // This line extracts the value from the event target (in this context an input field) and assigns it to a constant named title. The event.target refers to the DOM element that triggered the event, and .value gets the current value of that element
+    const result = title.length ? filterMovies(title, allEarWax) : allEarWax;
+    // now we put the variables to update the useStates pertaining to movies called setMovies and the variable to update the search with current value of the event listener (user input) which I named callously setSearchEarWaxTitle
+    setSearchEarWaxTitle(title);
+    setMovies(result) //This line updates the movies state with the result. If title is not empty, shows will be set to the filtered list; otherwise, it will be set to the full list of shows (allShows). This state is lused to control what is displayed in the UI
+  }; 
 
   // implement useEffect (()=>{}) that happens once when page renders (so make sure to put second argument to be empty array) which will load all movies after the effect is implemented (initial state is empty array) as long as there is no error rendering
 useEffect (()=>{
@@ -44,7 +50,10 @@ useEffect (()=>{
 
   return (
   <div>
-    {/* add ternary to include error message if earWaxError is true */}
+    {/* add ternary that wraps around the entire section (after <div>) to include error message prop if setEarWaxError is true. Gotta use earWaxError part of the useState. If false page will render with all the movie stuff */}
+    {earWaxError ? (
+      <ErrorMessage />
+    ) : (
     <section className="shows-index-wrapper">
       <h2>All Movies</h2>
       <button>
@@ -62,12 +71,13 @@ useEffect (()=>{
           onChange={handleTextChangeEarWax}
         />
       </label>
-    <section className="shows-index">
-      {movies.map((movie) => {
-        return <MovieListing movie={movie} key={movie.id} />;
+      <section className="shows-index">
+        {movies.map((movie) => {
+          return <MovieListing movie={movie} key={movie.id} />;
         })}
-    </section>
-    </section>
+      </section>
+    </section> 
+    )}
   </div>
   );
 }
