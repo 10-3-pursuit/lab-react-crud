@@ -22,12 +22,12 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/shows" />
+        <Route path="/shows" >
           <Route index element={<ShowsIndex />} />
           <Route path='new' element={<ShowsNewForm />} />
           <Route path=":id" element={<Show />} />
           <Route path=":id/edit" element={<ShowsEditForm />} />
-
+          </Route>
           <Route path="/movies" >
           <Route index element={<MoviesIndex />} />
           <Route path='new' element={<MoviesNewForm />} />

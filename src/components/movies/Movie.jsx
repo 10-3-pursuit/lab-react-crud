@@ -1,18 +1,36 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+
+import { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+const URL = import.meta.env.VITE_BASE_API_URL;
+import { getOneMovie, destroyMovie } from "../../api/fetch";
+
 
 import "./Movie.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
 
 function Movie() {
+    const {id} = useParams();
+    const navigate = useNavigate();
     const [movie, setMovie] = useState({});
     const [loadingError, setLoadingError] = useState(false);
 
-    const { id } = useParams();
 
-    function handleDelete() {}
-
+    function handleDelete() {
+        destroyMovie(id).then(() => navigate("/movies")).catch((error) => {
+            console.error(error);
+            setLoadingError(true);
+        })
+    }
+        useEffect(() => {
+            getOneMovie(id).then((data) => {
+                setMovie(data);
+                if (Object.keys(data).length === 0){setLoadingError(true)}
+                else {setLoadingError(false)}
+            }).catch((error) => {
+                {setLoadingError(true)}
+            })
+        },[id])
     return (
         <section className="movies-movie-wrapper">
             <h2>{movie.title}</h2>

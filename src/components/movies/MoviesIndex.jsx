@@ -27,8 +27,8 @@ const [loadingError, setLoadingError] = useState(false);
 function handleTextChange(event) {
   const inputTitle = event.target.value;
   const result = inputTitle.length
-    ? filterMovie(inputTitle, allMovie)
-    : allMovie;
+    ? filterMovies(inputTitle, allMovies)
+    : allMovies;
   setSearchTitle(inputTitle);
   setMovies(result);
 }
