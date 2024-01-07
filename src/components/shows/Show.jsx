@@ -1,17 +1,46 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+
+const URL = import.meta.env.VITE_BASE_API_URL
+
+//STOP HERE FOR LAB PART 1 ********************
+
+import { getOneShow } from "../../api/fetch";
 
 import "./Show.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
 
 function Show() {
+  const navigate = useNavigate()
   const [show, setShow] = useState({});
   const [loadingError, setLoadingError] = useState(false);
 
   const { id } = useParams();
 
-  function handleDelete() {}
+  function handleDelete() {
+    const options = { method: "DELETE" }
+    fetch(`${URL}/shows/${id}`, options)
+    .then(() => navigate("/shows"))
+    .catch((error) => {
+      setLoadingError(true)
+    });
+  }
+
+  useEffect(() => {
+    getOneShow(id)
+      .then((data) => {
+        setShow(data);
+        if (Object.keys(data).length === 0) {
+          setLoadingError(true);
+        } else {
+          setLoadingError(false);
+        }
+      })
+      .catch((error) => {
+        setLoadingError(true);
+      });
+  }, [id]);
 
   return (
     <section className="shows-show-wrapper">
@@ -42,7 +71,7 @@ function Show() {
               <p>{show.description}</p>
             </article>
             <aside>
-              <button className="delete" onClick={() => handleDelete(show.id)}>
+              <button className="delete" onClick={handleDelete}>
                 Remove show
               </button>
               <Link to={`/shows/${id}/edit`}>
