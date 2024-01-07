@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { getOneShow } from "../../api/fetch";
-import "./Show.css";
+import { getOneMovie } from "../../api/fetch";
+import "../shows/Show.css"
 
 import ErrorMessage from "../errors/ErrorMessage";
 const URL = import.meta.env.VITE_BASE_API_URL
 
-function Show() {
-  const [show, setShow] = useState({});
+function Movie() {
+  const [movie, setMovie] = useState({});
   const [loadingError, setLoadingError] = useState(false);
 
   const { id } = useParams();
   let navigate = useNavigate()
 
-  const {duration, listedIn, country, rating, dateAdded, id: showId, description} = show
+  const {duration, listedIn, country, rating, dateAdded, id: movieId, description} = movie
   
   function handleDelete() {
     const options = { method: "DELETE" }
-    fetch(`${URL}/shows/${id}`, options)
-      .then(() => navigate("/shows"))
+    fetch(`${URL}/movies/${id}`, options)
+      .then(() => navigate("/movies"))
       .catch((error) => {
         console.error(error);
         setLoadingError(true);
@@ -26,9 +26,9 @@ function Show() {
   }
 
   useEffect(() => {
-    getOneShow(id)
+    getOneMovie(id) // Ensure this function is implemented in your API fetch file
       .then((data) => {
-        setShow(data);
+        setMovie(data);
         if (Object.keys(data).length === 0) {
           setLoadingError(true);
         } else {
@@ -42,7 +42,7 @@ function Show() {
 
   return (
     <section className="shows-show-wrapper">
-      <h2>{show.title}</h2>
+      <h2>{movie.title}</h2>
       <section className="shows-show">
         {loadingError ? (
           <ErrorMessage />
@@ -70,9 +70,9 @@ function Show() {
             </article>
             <aside>
               <button className="delete" onClick={handleDelete}>
-                Remove show
+                Remove movie
               </button>
-              <Link to={`/shows/${showId}/edit`}>
+              <Link to={`/movies/${movieId}/edit`}>
                 <button>Edit</button>
               </Link>
             </aside>
@@ -83,4 +83,4 @@ function Show() {
   );
 }
 
-export default Show;
+export default Movie;
