@@ -49,7 +49,7 @@ function Show() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         setLoadingError(true);
       });
   }, [id]);

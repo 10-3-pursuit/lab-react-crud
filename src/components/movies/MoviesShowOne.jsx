@@ -31,13 +31,17 @@ const MoviesShowOne = () => {
     .then((data)=>{  //Once the data is successfully fetched, the .then block executes.
       setMovie(movie); //to then update the movie state of the data according to the id and callback fx
       // next lines are for error handling so gotta import the error handling component first. The if condition checks if the fetched data is empty (Object.keys(data).length === 0). If it's empty, it means no data was returned for the given id, and setLoadingErrorMovie(true) is called to indicate an error in loading data. Otherwise, setLoadingErrorMovie(false) indicates that the data loaded successfully.
-      if (Object.keys(data).length === 0) {
+      if (Object.keys(data).length === 0) { // if empty means data wasn't fetched so there's an error
         setLoadingErrorMovie(true);
       } else {
-        setLoadingErrorMovie(false);
+        setLoadingErrorMovie(false); // if there is data otherwise no error
       }
     })
     // catch error goes here
+    .catch((error)=>{ // catches errors that occur during data fetch
+      console.error(error) // logs error to console for debugging
+      setLoadingErrorMovie(true);
+    })
   },[id]); // The effect is triggered every time the id changes. This is because id is specified in the dependency array ([id]) of useEffect. Whenever id changes, useEffect reruns.
 
   return (
@@ -45,6 +49,9 @@ const MoviesShowOne = () => {
       <h2>{show.title}</h2>
       <section className="shows-show">
         {/* error ternary starts here where useEffect is true error message pops up and if false following code executes. Need to import error message component and place prop in ternary */}
+        {loadingErrorMovie ? (
+          <ErrorMessage />
+        ):(
           <>
             <aside>
               <p>
@@ -77,7 +84,7 @@ const MoviesShowOne = () => {
               </Link>
             </aside>
           </>
-
+          )}
       </section>
     </section>
   );
