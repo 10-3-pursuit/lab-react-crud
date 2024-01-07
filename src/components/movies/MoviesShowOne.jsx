@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'; // used for managing state in a functional component
 import { Link, useParams, useNavigate } from "react-router-dom"; // need this for handle delete movie fx and useEffect fx which will update the component depending on id selected to display selected movie for deletion or editing
-const URL = import.meta.env.VITE_BASE_API_URL; //This line imports an environment variable which likely contains the base URL for an API.
+// const URL = import.meta.env.VITE_BASE_API_URL; //This line imports an environment variable which likely contains the base URL for an API.
 
-import { getOneMovie  } from '../../api/fetch' // to access these callback fx which fetches data from the API and sends requests to API
-
+import { destroyMovie, getOneMovie  } from '../../api/fetch' // to access these callback fx which fetches data from the API and sends requests to API
+import "../shows/Show.css"
 import ErrorMessage from "../errors/ErrorMessage";
+
 
 const MoviesShowOne = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [movie, setMovie] = useState ({});
-  const [loadingErrorMovie, setLoadingErrorMovie] = useState (false)
+  const [loadingErrorMovie, setLoadingErrorMovie] = useState (false);
 
   const {
     // because there are two id variables, we will give this id key a new name, an alias, called showId. Deconstructing it makes it easier to use in jsx return
@@ -23,6 +25,12 @@ const MoviesShowOne = () => {
   } = movie;
 
   const handleDeleteMovie = () => { // App breaks if putting this fx in onClick on jsx return without creating it first. To create it must create useState for error. Then import useEffect and create a useEffect fx to handle sideeffects like error handling, navigating without refresh (must import useNavigate), useParams needs to be imported so we can use the id as a parameter for a callback fx that removes the movie depending on user input (on click) from deconstructing the movie data.
+    destroyMovie(id)
+    .then(() => navigate("/movies")) // The reason for this navigation is to redirect the user away from the current page (which is presumably the detail page of the show being deleted) to a page where the show no longer exists, like a list of all shows. It's a common user interface pattern to avoid leaving the user on a page that corresponds to a deleted entity
+    .catch((error) => {
+      console.error(error);
+      setLoadingErrorMovie(true);
+    });
   };
   
   // inside useEffect is where u gotta use all the set____() variables

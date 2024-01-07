@@ -46,7 +46,30 @@ In summary, the difference in imports reflects the different roles and functiona
    ```
    Here, after a show is successfully added (indicated by a successful API response), the user is navigated to a new page that presumably shows the details of the show just added. The `${response.id}` part dynamically constructs the URL using the ID returned from the API response.
 
-In summary, `useNavigate` in both `ShowsNewForm` and `MoviesNewForm` component is used to direct the user to a new page upon successful completion of a form submission. This enhances the user experience by providing immediate feedback and navigation to a relevant page, such as a detail view of the item just created.
+The `handleDelete` function in your code is designed to perform a couple of actions related to deleting a specific show and then handling the application's behavior after the deletion process. Let's break it down:
+
+1. **Deleting the Show:**
+   - `destroyShow(id)`: This function is presumably a custom function (possibly from `fetch.js` as mentioned in your comment) that performs the API call to delete the show with the given `id`. This is the actual deletion operation.
+
+2. **Navigating After Deletion:**
+   - `.then(() => navigate("/shows"))`: This part is executed after the successful completion of the `destroyShow` function. 
+   - `navigate("/shows")`: This is a method from `react-router-dom`'s `useNavigate` hook. It programmatically navigates the user to a different route, in this case, the route that lists all shows (`/shows`).
+   - The reason for this navigation is to redirect the user away from the current page (which is presumably the detail page of the show being deleted) to a page where the show no longer exists, like a list of all shows. It's a common user interface pattern to avoid leaving the user on a page that corresponds to a deleted entity.
+
+3. **Error Handling:**
+   - `.catch((error) => {...})`: This block catches any errors that occur during the deletion process.
+   - `console.error(error)`: Logs the error to the console, useful for debugging.
+   - `setLoadingError(true)`: Sets an error state, indicating that an error occurred. This could be used to inform the user that the deletion was unsuccessful.
+
+Basically, `useNavigate` in both `ShowsNewForm` and `MoviesNewForm` component is used to direct the user to a new page upon successful completion of a form submission. This enhances the user experience by providing immediate feedback and navigation to a relevant page, such as a detail view of the item just created.
+
+### Why is `.then(() => navigate("/shows"))` Necessary?
+
+- **User Experience (UX):** After a user deletes a show, it's logical from a UX perspective to redirect them away from the deleted show's page, as the show no longer exists. Staying on the same page might confuse the user or lead to errors since the backend data for that show has been removed.
+- **Avoiding Inconsistencies:** Redirecting to another page, like a list of all shows, ensures the user interface reflects the current state of the data (i.e., the show has been deleted).
+- **Programmatic Navigation:** In single-page applications (SPAs) like those built with React, navigation after certain actions (like deletion) is often handled programmatically to provide a smoother user experience without the need for a full page reload.
+
+In summary, the `.then(() => navigate("/shows"))` in your `handleDelete` function is necessary for providing a smooth and logical flow in the application after a show is deleted, guiding the user back to a relevant page where they can continue their interaction with the app.
 
 ## What is the purpose of each useState used in ShowsIndex.jsx?
 
