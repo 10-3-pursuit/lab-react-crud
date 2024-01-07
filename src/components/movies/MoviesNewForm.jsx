@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 const URL = import.meta.env.VITE_BASE_API_URL;
+import "../shows/Show.css"; // css used for shows display also can be used for movies display
+// Forms usually need their own useState
 
-import "./ShowsForm.css";
+const MoviesNewForm = () => {
+  const navigate = useNavigate(); // to navigate routes once form is submitted
 
-export default function ShowsForm() {
-  const navigate = useNavigate();
-
-  const [show, setShow] = useState({
+  const [movie, setMovie] = useState({ //use to initialize state of form / reset form
     type: "",
     title: "",
     country: "",
@@ -20,102 +19,103 @@ export default function ShowsForm() {
     releaseYear: "",
   });
 
-  function handleSubmit(event) {
+  function handleSubmitMovie (event) {
     event.preventDefault();
 
     const options = {
       method: "POST",
-      body: JSON.stringify(show),
+      body: JSON.stringify(movie),
       headers: { "Content-Type": "application/json" },
     };
 
-    fetch(`${URL}/shows/`, options)
+    fetch(`${URL}/movies/`, options)
       .then((response) => response.json())
       .then((response) => {
-        navigate(`/shows/${response.id}`);
+        navigate(`/movies/${response.id}`);
       })
       .catch((error) => console.error(error));
-  }
+  };
 
-  function handleTextChange(event) {
-    setShow({
-      ...show,
-      [event.target.id]: event.target.value,
+  function handleTextChangeMovie (event) {
+    setMovie({
+        // make shallow copy of data with spread op
+        ...movie,
+        [event.target.id] : event.target.value, 
     });
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="title">Title:</label>
+    <form onSubmit={handleSubmitMovie}>
+        <label htmlFor="title">Title:</label>
       <input
         type="text"
         id="title"
-        value={show.title}
-        onChange={handleTextChange}
+        value={movie.title}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="description">Description:</label>
       <input
         type="text"
         id="description"
-        value={show.description}
-        onChange={handleTextChange}
+        value={movie.description}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="type">Type</label>
       <input
         type="text"
         id="type"
-        value={show.type}
-        onChange={handleTextChange}
+        value={movie.type}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="rating">Rating:</label>
       <input
         type="text"
         id="rating"
-        value={show.rating}
-        onChange={handleTextChange}
+        value={movie.rating}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="listedIn">Listed in</label>
       <input
         type="text"
         id="listedIn"
-        value={show.listedIn}
-        onChange={handleTextChange}
+        value={movie.listedIn}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="duration">Duration</label>
       <input
         type="text"
         id="duration"
-        value={show.duration}
-        onChange={handleTextChange}
+        value={movie.duration}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="releaseYear">Release Year</label>
       <input
         type="text"
         id="releaseYear"
-        value={show.releaseYear}
-        onChange={handleTextChange}
+        value={movie.releaseYear}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="country">Country</label>
       <input
         type="text"
         id="country"
-        value={show.country}
-        onChange={handleTextChange}
+        value={movie.country}
+        onChange={handleTextChangeMovie}
       />
 
       <label htmlFor="dateAdded">Date added:</label>
       <input
         type="text"
         id="dateAdded"
-        value={show.dateAdded}
-        onChange={handleTextChange}
+        value={movie.dateAdded}
+        onChange={handleTextChangeMovie}
       />
 
       <br />
@@ -124,3 +124,5 @@ export default function ShowsForm() {
     </form>
   );
 }
+
+export default MoviesNewForm;
