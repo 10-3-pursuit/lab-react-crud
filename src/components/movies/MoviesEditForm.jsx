@@ -9,7 +9,7 @@ const URL = import.meta.env.VITE_BASE_API_URL;
 
 const MoviesEditForm = () => {
   const navigate = useNavigate(); // to navigate routes once form is submitted
-  const { id } = useParams;
+  const { id } = useParams();
 
   const [movie, setMovie] = useState({ //use to initialize state of form / reset form
     type: "",
@@ -48,7 +48,7 @@ const MoviesEditForm = () => {
   useEffect(() => {
     getOneMovie(id)
       .then((response) => {
-        setMovie(response);
+        setMovie(response); //Once the data for the movie is fetched, it's set to the movie state variable using setMovie(response). This action populates form fields with the existing values of the movie. Without this step, the form would start empty, and the user would have to re-enter all the data from scratch, even if they only want to edit one field
       })
       .catch((error) => {
         console.error(error);
