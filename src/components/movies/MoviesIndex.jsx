@@ -7,10 +7,10 @@ import MovieListing from "./MovieListing";
 
 //create filter fx for search bar
 
-function filterMovies(beanSearch, movies) {  // beanSearch parameter is the user input for search bar form
+function filterMovies(search, movies) {  // beanSearch parameter is the user input for search bar form
   // iterate through movies (parameter for movie data in api which is an array of object)
   return movies.filter((movie) =>{
-    return movie.title.toLowerCase().match(beanSearch.toLowerCase()); // .toLowerCase makes search input case insensitive
+    return movie.title.toLowerCase().match(search.toLowerCase()); // .toLowerCase makes search input case insensitive
     //.match(search.toLowerCase()) checks if the movie title contains the search string. If it does, the match method returns a truthy value (not null), and the movie is included in the filtered array.
   });
 }
