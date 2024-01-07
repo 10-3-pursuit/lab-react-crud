@@ -8,7 +8,7 @@ import { getAllMovies } from "../../api/fetch";
 
 import "../shows/ShowsIndex.css";
 
-function filterShows(search, movies) {
+function filterMovies(search, movies) {
   return movies.filter((movie) => {
     return movie.title.toLowerCase().match(search.toLowerCase());
   });

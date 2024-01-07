@@ -30,13 +30,9 @@ function App() {
           <Route path=":id/edit" element={<ShowsEditForm />} />
         </Route>
         <Route path="/movies" >
-          {/* /shows */}
           <Route index element={<MoviesIndex />} />
-          {/* /shows/new */}
           <Route path="new" element={<MoviesNewForm />} />
-          {/* /shows/:id */}
           <Route path=":id" element={<Movie />} />
-          {/* /shows/:id/edit */}
           <Route path=":id/edit" element={<MoviesEditForm />} />
         </Route>
       </Routes>
