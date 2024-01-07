@@ -21,25 +21,25 @@ export default function MoviesIndex() {
   // useState to change view of movieListing
   // create handleTextChangeMovies with useState for the text change for searchbar
 
-  const [movies, setMovies] = useState([]); // to get movie data
+  const [moviesData, setMoviesData] = useState([]); // to get movie data
   const [movieError, setMovieError] = useState(false); //toggle whether or not earwax is false (ERROR!!)
-  const [allEarWax, setAllEarWax] = useState([]); // initial state is no earwax in array
-  const [searchEarWaxTitle, setSearchEarWaxTitle] = useState(""); // for search bar input
+  const [allMovies, setAllMovies] = useState([]); // initial state is no earwax in array
+  const [searchMovieTitle, setSearchMovieTitle] = useState(""); // for search bar input
 
-  const handleTextChangeEarWax = (event) => { // use filterMovies fx as callback fx to handle search bar input. The parameters are the event listener and useState - not the set one, the other one (the one that holds the current state value for component)
+  const handleTextChangeMovie = (event) => { // use filterMovies fx as callback fx to handle search bar input. The parameters are the event listener and useState - not the set one, the other one (the one that holds the current state value for component)
     const title = event.target.value; // This line extracts the value from the event target (in this context an input field) and assigns it to a constant named title. The event.target refers to the DOM element that triggered the event, and .value gets the current value of that element
-    const result = title.length ? filterMovies(title, allEarWax) : allEarWax;
-    // now we put the variables to update the useStates pertaining to movies called setMovies and the variable to update the search with current value of the event listener (user input) which I named callously setSearchEarWaxTitle
-    setSearchEarWaxTitle(title);
-    setMovies(result) //This line updates the movies state with the result. If title is not empty, shows will be set to the filtered list; otherwise, it will be set to the full list of shows (allShows). This state is lused to control what is displayed in the UI
+    const result = title.length ? filterMovies(title, allMovies) : allMovies;
+    // now we put the variables to update the useStates pertaining to movies called setMoviesData and the variable to update the search with current value of the event listener (user input) which I previously named callously setSearchEarWaxTitle but now is setSearchMovieTitle
+    setSearchMovieTitle(title);
+    setMoviesData(result) //This line updates the movies state with the result. If title is not empty, shows will be set to the filtered list; otherwise, it will be set to the full list of shows (allShows). This state is lused to control what is displayed in the UI
   }; 
 
   // implement useEffect (()=>{}) that happens once when page renders (so make sure to put second argument to be empty array) which will load all movies after the effect is implemented (initial state is empty array) as long as there is no error rendering
 useEffect (()=>{
   getAllMovies() // gets entire data
     .then((data)=>{
-      setAllEarWax(data); // lets us set useEffect for the data; which is used to update the component's state with the fetched data. This is important for rendering the list of movies and for the search functionality to work correctly.
-      setMovies(data); // lets us set useEffect for each movie that way you can choose it when searching
+      setAllMovies(data); // lets us set useEffect for the data; which is used to update the component's state with the fetched data. This is important for rendering the list of movies and for the search functionality to work correctly.
+      setMoviesData(data); // lets us set useEffect for each movie that way you can choose it when searching
       setMovieError(false); // handles any errors along with following catch error lines that might occur during the data fetching process (if error it'll change the useState to true)
     })
     .catch ((error)=>{
@@ -60,18 +60,18 @@ useEffect (()=>{
       <Link to="/movies/new">Add a new movie</Link>
       </button>
       {/* <br /> */}
-      <label htmlFor="searchEarWaxTitle">
+      <label htmlFor="searchMovieTitle">
         Search Movies:
         {/* type is text bc string, value is the useState, id must match useState name, add the onChange fx. Note: App breaks when adding handler to onChange if fx hasn't been previously created */}
         <input
           type="text"
-          value={searchEarWaxTitle}
-          id="searchEarWaxTitle" // corrected syntax error typo
-          onChange={handleTextChangeEarWax}
+          value={searchMovieTitle}
+          id="searchMovieTitle" // corrected syntax error typo
+          onChange={handleTextChangeMovie}
         />
       </label>
       <section className="shows-index">
-        {movies.map((movie) => {
+        {moviesData.map((movie) => {
           return <MovieListing movie={movie} key={movie.id} />;
         })}
       </section>
