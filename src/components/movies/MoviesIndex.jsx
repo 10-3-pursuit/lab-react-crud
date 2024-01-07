@@ -22,7 +22,7 @@ export default function MoviesIndex() {
   // create handleTextChangeMovies with useState for the text change for searchbar
 
   const [movies, setMovies] = useState([]); // to get movie data
-  const [earWaxError, setEarWaxError] = useState(false); //toggle whether or not earwax is false (ERROR!!)
+  const [movieError, setMovieError] = useState(false); //toggle whether or not earwax is false (ERROR!!)
   const [allEarWax, setAllEarWax] = useState([]); // initial state is no earwax in array
   const [searchEarWaxTitle, setSearchEarWaxTitle] = useState(""); // for search bar input
 
@@ -40,18 +40,18 @@ useEffect (()=>{
     .then((data)=>{
       setAllEarWax(data); // lets us set useEffect for the data; which is used to update the component's state with the fetched data. This is important for rendering the list of movies and for the search functionality to work correctly.
       setMovies(data); // lets us set useEffect for each movie that way you can choose it when searching
-      setEarWaxError(false); // handles any errors along with following catch error lines that might occur during the data fetching process (if error it'll change the useState to true)
+      setMovieError(false); // handles any errors along with following catch error lines that might occur during the data fetching process (if error it'll change the useState to true)
     })
     .catch ((error)=>{
       console.error(error); // logs error
-      setEarWaxError(true); // if error it'll change the useState to true used with line 37
+      setMovieError(true); // if error it'll change the useState to true used with line 37
     });
 }, []); // second param empty array so effect happens once only when page renders
 
   return (
   <div>
     {/* add ternary that wraps around the entire section (after <div>) to include error message prop if setEarWaxError is true. Gotta use earWaxError part of the useState. If false page will render with all the movie stuff */}
-    {earWaxError ? (
+    {movieError ? (
       <ErrorMessage />
     ) : (
     <section className="shows-index-wrapper">
