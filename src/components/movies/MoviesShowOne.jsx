@@ -1,5 +1,5 @@
 import { useState } from 'react'; // used for managing state in a functional component
- 
+import { Link, useParams, useNavigate } from "react-router-dom"; 
 const URL = import.meta.env.VITE_BASE_API_URL; //This line imports an environment variable which likely contains the base URL for an API.
 
 import { getOneMovie  } from '../../api/fetch' // to access these callback fx which fetches data from the API and sends requests to API
@@ -17,7 +17,7 @@ const MoviesShowOne = () => {
     description,
   } = movie;
 
-  const handleDeleteMovie = () => { // App breaks if putting this fx in onClick on jsx return without creating it first. To create it must create useState for error. Then import useEffect and create a useEffect fx to handle sideeffects like error handling, navigating without refresh (must import Navigate), useParams needs to be imported so we can use the id as a parameter for a callback fx that removes the movie depending on user input (on click) from deconstructing the movie data.
+  const handleDeleteMovie = () => { // App breaks if putting this fx in onClick on jsx return without creating it first. To create it must create useState for error. Then import useEffect and create a useEffect fx to handle sideeffects like error handling, navigating without refresh (must import useNavigate), useParams needs to be imported so we can use the id as a parameter for a callback fx that removes the movie depending on user input (on click) from deconstructing the movie data.
 
   };
 
@@ -52,6 +52,7 @@ const MoviesShowOne = () => {
                 {/* The handleDeleteMovie function does not require showId because it uses the id from the URL parameters (useParams()), which is the identifier of the show to delete. */}
                 Remove show
               </button>
+              {/* need to import Link to access component that takes you to an edit form where id is used to find specific movie to edit; useParams needs to be imported so id can be used as a parameter */}
               <Link to={`/movies/${id}/edit`}>
                 <button>Edit</button>
               </Link>
