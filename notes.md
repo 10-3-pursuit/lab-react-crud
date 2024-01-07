@@ -1,5 +1,38 @@
 # Why are these components necessary to create this CRUD App?
 
+This application is a React web application with a focus on managing and displaying information about shows and movies. Each component and route serves a specific purpose for the functionality of the application:
+
+1. **`/` (Home Route)**: This is the default route that loads the home page of the application.
+
+2. **`/shows` (Shows Index Route)**: Displays a list or index of all shows. Users can view all the shows available in the application.
+
+3. **`/shows/new` (Shows New Form Route)**: This route presents a form to create a new show. It allows users to input data for a new show and add it to the list.
+
+4. **`/shows/:id` (Shows Show One Route)**: Displays detailed information about a specific show. The `:id` is a placeholder for a specific show's unique identifier.
+
+5. **`/shows/:id/edit` (Shows Edit Form Route)**: This route allows users to edit the details of an existing show. It typically loads a form pre-filled with the show's existing data.
+
+6. **`/movies` (Movies Index Route)**: Similar to the shows index, this route displays an index or list of all movies in the application.
+
+7. **`/movies/new` (Movies New Form Route)**: Provides a form for entering data for a new movie.
+
+8. **`/movies/:id` (Movies Show One Route)**: Shows detailed information for a specific movie. The `:id` represents the movie's unique identifier.
+
+9. **`/movies/:id/edit` (Movies Edit Form Route)**: Allows editing of a specific movie's details.
+
+The user stories (like being able to see a list of shows/movies, getting error messages, etc.) describe the functionality that the application provides from the user's perspective. These stories guide the development of the application's features and ensure that it meets user needs.
+
+The React code provided shows the structure and routing of the application, using `react-router-dom` for navigation between different components (pages) like `Home`, `Show`, `ShowsIndex`, etc. The use of hooks like `useState`, `useEffect`, `useParams`, and `useNavigate` indicates dynamic data handling and navigation.
+
+- `useState` is used for managing state in a functional component.
+- `useEffect` is for side-effects in components, like fetching data on component mount.
+- `useParams` is used to access parameters of the current route.
+- `useNavigate` allows programmatic navigation.
+
+The `URL` variable and functions like `getOneShow`, `destroyShow`, and `getAllShows` suggest interaction with an external API or backend for CRUD (Create, Read, Update, Delete) operations on shows and movies. 
+
+Overall, each route and component is designed to handle a specific part of the application's functionality, from displaying lists of shows/movies to handling the creation, deletion, and updating of individual entries.
+
 ### First Component: `Show`
 
 1. **Imports from React and React Router DOM:**
