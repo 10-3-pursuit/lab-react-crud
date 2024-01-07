@@ -48,7 +48,7 @@ export default function ShowsIndex() {
         <section className="shows-index-wrapper">
           <h2>All Movies</h2>
           <button>
-            <Link to="/moviess/new">Add a new movie</Link>
+            <Link to="/movies/new">Add a new movie</Link>
           </button>
           <br />
           <label htmlFor="searchTitle">

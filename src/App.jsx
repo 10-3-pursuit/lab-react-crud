@@ -23,7 +23,7 @@ function App() {
           {/* /shows */}
           <Route index element={<ShowsIndex />} />
           {/* /shows/new */}
-          <Route path='new' element={<ShowsNewForm />} />
+          <Route path="new" element={<ShowsNewForm />} />
           {/* /shows/:id */}
           <Route path=":id" element={<Show />} />
           {/* /shows/:id/edit */}
@@ -33,7 +33,7 @@ function App() {
           {/* /shows */}
           <Route index element={<MoviesIndex />} />
           {/* /shows/new */}
-          <Route path='new' element={<MoviesNewForm />} />
+          <Route path="new" element={<MoviesNewForm />} />
           {/* /shows/:id */}
           <Route path=":id" element={<Movie />} />
           {/* /shows/:id/edit */}
