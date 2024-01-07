@@ -7,7 +7,7 @@ import { getOneMovie  } from '../../api/fetch' // to access these callback fx wh
 const MoviesShowOne = () => {
   const [movie, setMovie] = useState ({});
   const {
-    // because there are two id variables, we will give this id key a new name, an alias, called showId
+    // because there are two id variables, we will give this id key a new name, an alias, called showId. Deconstructing it makes it easier to use in jsx return
     id: showId,
     duration,
     listedIn,
@@ -17,9 +17,50 @@ const MoviesShowOne = () => {
     description,
   } = movie;
 
+  const handleDeleteMovie = () => { // App breaks if putting this fx in onClick on jsx return without creating it first. To create it must create useState for error. Then import useEffect and create a useEffect fx to handle sideeffects like error handling, navigating without refresh (must import Navigate), useParams needs to be imported so we can use the id as a parameter for a callback fx that removes the movie depending on user input (on click) from deconstructing the movie data.
+
+  };
+
   return (
-    <div>MoviesShowOne</div>
-  )
+    <section className="shows-show-wrapper">
+      <h2>{show.title}</h2>
+      <section className="shows-show">
+        {/* error ternary starts here where useEffect is true error message pops up and if false following code executes. Need to import error message component and place prop in ternary */}
+          <>
+            <aside>
+              <p>
+                <span>Duration:</span> {duration}
+              </p>
+              <p>
+                <span>Listed Categories:</span> {listedIn}
+              </p>
+              <p>
+                <span>Country:</span> {country}
+              </p>
+              <p>
+                <span>Rating:</span> {rating}
+              </p>
+              <p>
+                <span>Date Added:</span> {dateAdded}
+              </p>
+            </aside>
+            <article>
+              <p>{description}</p>
+            </article>
+            <aside>
+              <button className="delete" onClick={handleDeleteMovie}>
+                {/* The handleDeleteMovie function does not require showId because it uses the id from the URL parameters (useParams()), which is the identifier of the show to delete. */}
+                Remove show
+              </button>
+              <Link to={`/movies/${id}/edit`}>
+                <button>Edit</button>
+              </Link>
+            </aside>
+          </>
+
+      </section>
+    </section>
+  );
 }
 
 export default MoviesShowOne

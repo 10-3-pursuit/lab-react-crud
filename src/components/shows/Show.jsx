@@ -30,7 +30,7 @@ function Show() {
   function handleDelete() {
     // const options = { method: "DELETE" };
     // fetch(`${URL}/shows/${id}`, options)
-    destroyShow(id) // don't need to use URL variable here from line 4 because using callback fx from fetch.js
+    destroyShow(id) // don't need to use URL variable here from line 4 because using callback fx from fetch.js. This callback already uses URL variable to interact with API
       .then(() => navigate("/shows"))
       .catch((error) => {
         console.error(error);
@@ -88,6 +88,7 @@ function Show() {
                 Remove show
               </button>
               <Link to={`/shows/${id}/edit`}>
+                {/* takes you to ShowsEditForm component */}
                 <button>Edit</button>
               </Link>
             </aside>

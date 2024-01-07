@@ -1,5 +1,36 @@
 # Why are these components necessary to create this CRUD App?
 
+### First Component: `Show`
+
+1. **Imports from React and React Router DOM:**
+   - `useState, useEffect`: These are React hooks. `useState` is used for state management within the component, and `useEffect` is for side effects, like fetching data.
+   - `Link, useParams, useNavigate`: These are from `react-router-dom`. `Link` is used to create hyperlinks to navigate between different routes. `useParams` retrieves parameters from the URL, and `useNavigate` is a hook that allows programmatic navigation.
+
+2. **Functionality:**
+   - This component seems to represent a detailed view of a specific show. It fetches data about a show using `useEffect` and the `getOneShow` function.
+   - `useParams` is used to extract the `id` from the URL, which is essential for fetching, editing, or deleting specific show data.
+   - The component handles deleting a show and navigates away once deletion is complete.
+   - The destructuring of `show` state is for easier access to show properties in the JSX.
+
+### Second Component: `ShowListing`
+
+1. **Import from React Router DOM:**
+   - `Link`: Used for navigation, similar to the first component. It's the only import from `react-router-dom` because that's all that is needed for this component's functionality.
+
+2. **Functionality:**
+   - This is a simpler component, likely representing a single item in a list of shows.
+   - It receives a `show` object as a prop and uses it to display basic information about the show.
+   - It only needs `Link` for navigation to the detailed view of the show.
+
+### Why Do You Need These Imports?
+
+Each component imports only what it needs for its specific functionality:
+
+- The `Show` component is more complex, requiring multiple hooks from both React and `react-router-dom` for state management, side effects, and routing functionalities.
+- The `ShowListing` component is simpler and primarily focused on presentation, thus requiring fewer imports.
+
+In summary, the difference in imports reflects the different roles and functionalities of the two components within your application. The `Show` component is designed for detailed interaction with a specific show, including editing and deleting, while `ShowListing` is more about displaying a summary of each show in a list format.
+
 ## Why is useNavigate needed?
 
 `useNavigate` from "react-router-dom" is used as a hook to navigate programmatically in a React application. It is particularly relevant in the context of form submission and handling the response of that submission. Let's break down its usage:
@@ -57,6 +88,27 @@ The `Link` component imported from `'react-router-dom'` in the `ShowListing.jsx`
 3. **Benefits Over Traditional `<a>` Tags:**
    - Unlike traditional `<a>` tags, which cause a full page reload, `Link` performs navigation within the React application without reloading the entire page. This is more efficient and maintains the application's state.
    - It integrates seamlessly with React Router's routing system, making it easy to manage complex navigation needs in React applications.
+
+### Using Link in Show component to Edit a show
+
+The code snippet uses the `Link` component from `react-router-dom` to navigate to an edit page. Here's how it works:
+
+```jsx
+<Link to={`/shows/${id}/edit`}>
+  <button>Edit</button>
+</Link>
+```
+
+- **```<Link to={`/shows/${id}/edit`}>```**: This is a declarative way to navigate around the application. When you wrap a component with `Link` and specify the `to` prop, it tells your application to navigate to the URL you've provided. In this case, the URL is `/shows/${id}/edit`, where `id` is the identifier of the show. This URL likely corresponds to a route in your application that is dedicated to editing a show.
+
+- **`<button>Edit</button>`**: The button here is just a regular HTML button. It doesn't have an `onClick` handler because its purpose is not to execute a function but to serve as a clickable element. When this button is clicked, the `Link` component it's wrapped in will navigate the user to the edit page for the specific show.
+
+### Why No Function is Needed:
+
+- The actual editing logic is not handled in this component. Instead, this component's responsibility is to navigate the user to the edit page.
+- Once on the edit page, a different component (likely a form component) will handle the editing functionality. This component will probably have its own state and functions to manage the form inputs, submission, and communicate with the backend to update the show's data.
+
+So, in summary, the snippet you've shown is just for navigation purposes. It leads the user to the appropriate edit page, and the editing logic is handled separately on that page.
 
 In summary, the `Link` component in `ShowListing.jsx` is used to create a user-friendly, efficient, and seamless navigation experience within your React application, allowing users to click on a show's title to view more details about that show.
 
