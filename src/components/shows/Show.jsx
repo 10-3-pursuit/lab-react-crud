@@ -13,7 +13,7 @@ function Show() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [show, setShow] = useState({});
+  const [show, setShow] = useState({}); // suggests that show is expected to be an object - show is meant to represent a single entity (like a TV show or a movie) with various properties (like title, description, rating, etc.), and initially, this entity has no data (hence the empty object)
   const [loadingError, setLoadingError] = useState(false);
   // destructuring the show state so that we can be DRY in our JSX - Destructuring show: Extracts properties like duration, listedIn, etc., from the show state for easier access in the JSX
   const {
@@ -48,7 +48,7 @@ function Show() {
           setLoadingError(false);
         }
       })
-      .catch((error) => { // still works but idk why? even tho value is declared but value never read
+      .catch((error) => {
         console.log(error);
         setLoadingError(true);
       });
