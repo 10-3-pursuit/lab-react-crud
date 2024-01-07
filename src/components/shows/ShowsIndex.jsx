@@ -53,7 +53,7 @@ export default function ShowsIndex() {
           <button>
             <Link to="/shows/new">Add a new show</Link>
           </button>
-          <br />
+          {/* <br /> */}
           <label htmlFor="searchTitle" />
             Search Shows:
             <input

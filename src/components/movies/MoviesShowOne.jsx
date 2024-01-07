@@ -98,4 +98,4 @@ const MoviesShowOne = () => {
   );
 }
 
-export default MoviesShowOne
+export default MoviesShowOne;

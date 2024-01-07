@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 const URL = import.meta.env.VITE_BASE_API_URL;
 import "../shows/Show.css"; // css used for shows display also can be used for movies display
 // Forms usually need their own useState
+
 const MoviesNewForm = () => {
   const navigate = useNavigate(); // to navigate routes once form is submitted
 
-  const [movie, setMovie] = useState({
+  const [movie, setMovie] = useState({ //use to initialize state of form / reset form
     type: "",
     title: "",
     country: "",

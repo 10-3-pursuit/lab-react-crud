@@ -59,9 +59,8 @@ useEffect (()=>{
       <button>
       <Link to="/movies/new">Add a new movie</Link>
       </button>
-      <br />
-      {/* create HTML for searchbar */}
-      <label htmlFor="searchEarWaxTitle">
+      {/* <br /> */}
+      <label htmlFor="searchEarWaxTitle" />
         Search Movies:
         {/* type is text bc string, value is the useState, id must match useState name, add the onChange fx. Note: App breaks when adding handler to onChange if fx hasn't been previously created */}
         <input
@@ -70,7 +69,7 @@ useEffect (()=>{
           id="seachEarWaxTitle"
           onChange={handleTextChangeEarWax}
         />
-      </label>
+      {/* </label> */}
       <section className="shows-index">
         {movies.map((movie) => {
           return <MovieListing movie={movie} key={movie.id} />;
