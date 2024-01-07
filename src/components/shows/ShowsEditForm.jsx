@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./ShowsForm.css";
+import { getOneShow } from "../../api/fetch";
+const URL = import.meta.env.VITE_BASE_API_URL;
 
 export default function ShowsForm() {
+  const navigate = useNavigate()
+  const { id } = useParams()
   const [show, setShow] = useState({
     type: "",
     title: "",
@@ -14,7 +19,19 @@ export default function ShowsForm() {
     releaseYear: "",
   });
 
-  function handleSubmit(event) {}
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    const options = {
+      method: "PUT",
+      body: JSON.stringify(show),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch(`${URL}/shows/${id}`, options)
+      .then((response) => response.json())
+      .then(() => navigate (`/shows/${id}`))
+  }
 
   function handleTextChange(event) {
     setShow({
@@ -22,6 +39,16 @@ export default function ShowsForm() {
       [event.target.id]: event.target.value,
     });
   }
+
+  useEffect(() => {
+    getOneShow(id)
+      .then((response) => {
+        setShow(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
 
   return (
     <form onSubmit={handleSubmit}>
