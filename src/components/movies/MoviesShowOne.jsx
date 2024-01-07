@@ -20,10 +20,14 @@ const MoviesShowOne = () => {
 
   const handleDeleteMovie = () => { // App breaks if putting this fx in onClick on jsx return without creating it first. To create it must create useState for error. Then import useEffect and create a useEffect fx to handle sideeffects like error handling, navigating without refresh (must import useNavigate), useParams needs to be imported so we can use the id as a parameter for a callback fx that removes the movie depending on user input (on click) from deconstructing the movie data.
   };
-
+// in useEffect is where u gotta use all the set____() variables
   useEffect(()=>{
-    getOneMovie(id);
-  },[id]);
+    getOneMovie(id) // makes an API call to fetch details about a specific show based on its id
+    .then((data)=>{  //Once the data is successfully fetched, the .then block executes.
+      setMovie(movie); //to then update the movie state of the data according to the id and callback fx
+      // next lines are for error handling so gotta import the error handling component first
+    })
+  },[id]); // The effect is triggered every time the id changes. This is because id is specified in the dependency array ([id]) of useEffect. Whenever id changes, useEffect reruns.
 
   return (
     <section className="shows-show-wrapper">
