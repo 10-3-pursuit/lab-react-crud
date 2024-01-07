@@ -47,7 +47,7 @@ export default function MoviesIndex() {
         <section className="movies-index-wrapper">
           <h2>All Movies</h2>
           <button>
-            <Link to="/movies/new">Add a new show</Link>
+            <Link to="/movies/new">Add a new movie</Link>
           </button>
           <br />
           <label htmlFor="searchTitle">
