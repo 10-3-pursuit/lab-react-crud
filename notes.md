@@ -195,3 +195,39 @@ The `useEffect` hook in `ShowsIndex` component plays a crucial role in managing 
 5. **Component Organization and Clean Code**: By abstracting the data-fetching logic into the `useEffect` hook, your code remains organized and easier to maintain. It separates the concerns of fetching and setting up the initial state from the rest of the component logic, like event handling and rendering.
 
 In summary, this `useEffect` hook is essential for initializing the state with data from an external source, handling errors gracefully, and ensuring that the component has the necessary data to render correctly upon mounting. Without this hook, the component would not have the data it needs to function properly, and handling the asynchronous nature of data fetching would be more complicated.
+
+## More information about fetching:
+
+The `handleSubmit` function in `ShowsForm` component is designed to handle the form submission for editing a show's details. Let's break down what this function and the component are doing:
+
+### `handleSubmit` Function:
+
+1. **Preventing Default Form Submission:**
+   - `event.preventDefault();`: This line prevents the default form submission behavior, which typically causes a page reload. In a React application, you often want to handle form submissions asynchronously to maintain a smooth user experience.
+
+2. **Preparing Request Options:**
+   - `const options = { ... };`: This block creates an options object for the `fetch` request.
+   - It specifies the HTTP method as `"PUT"`, indicating that this is an update operation.
+   - `body: JSON.stringify(show)`: The current state of the `show` object is converted to a JSON string. This is the data that will be sent to the server to update the show's details.
+   - `headers: { "Content-Type": "application/json" }`: This sets the content type of the request to JSON, informing the server that the request body is in JSON format.
+
+3. **Making the Fetch Request:**
+   - `fetch(`${URL}/shows/${id}`, options)`: This sends a request to the server to update the details of the show with the specified `id`. `URL` is the base API URL, and `/shows/${id}` is the endpoint for updating a specific show.
+
+4. **Handling the Response:**
+   - `.then((response) => response.json())`: This processes the response from the server, converting it to JSON.
+   - `.then(() => navigate(`/shows/${id}`))`: After a successful update, this navigates the user to the detail page of the updated show. This is a way of providing immediate feedback and confirmation of the update.
+
+### `ShowsForm` Component:
+
+- This component is a form for editing the details of a show. It uses `useState` to manage the form's state (`show`) and `useEffect` to fetch the current details of the show when the component mounts or when the `id` changes.
+- `handleTextChange` is an event handler for updating the `show` state when the user changes the input fields.
+
+### Overall Flow:
+
+1. When the `ShowsForm` component mounts, it fetches the current details of the show and populates the form fields.
+2. The user edits the fields as needed.
+3. Upon form submission, `handleSubmit` is triggered.
+4. This function sends the updated data to the server and then navigates the user to the show's detail page.
+
+In summary, `handleSubmit` in the `ShowsForm` component handles the logic for submitting the edited show data to the server, and then redirects the user to a confirmation page, ensuring a seamless user experience.

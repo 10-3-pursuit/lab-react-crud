@@ -15,7 +15,7 @@ const MoviesShowOne = () => {
 
   const {
     // because there are two id variables, we will give this id key a new name, an alias, called showId. Deconstructing it makes it easier to use in jsx return
-    id: showId,
+    id: movieId,
     duration,
     listedIn,
     country,
@@ -37,7 +37,7 @@ const MoviesShowOne = () => {
   useEffect(()=>{
     getOneMovie(id) // makes an API call to fetch details about a specific show based on its id
     .then((data)=>{  //Once the data is successfully fetched, the .then block executes.
-      setMovie(movie); //to then update the movie state of the data according to the id and callback fx
+      setMovie(data); //to then update the movie state of the data according to the id and callback fx
       // next lines are for error handling so gotta import the error handling component first. The if condition checks if the fetched data is empty (Object.keys(data).length === 0). If it's empty, it means no data was returned for the given id, and setLoadingErrorMovie(true) is called to indicate an error in loading data. Otherwise, setLoadingErrorMovie(false) indicates that the data loaded successfully.
       if (Object.keys(data).length === 0) { // if empty means data wasn't fetched so there's an error
         setLoadingErrorMovie(true);
@@ -54,7 +54,7 @@ const MoviesShowOne = () => {
 
   return (
     <section className="shows-show-wrapper">
-      <h2>{show.title}</h2>
+      <h2>{movie.title}</h2>
       <section className="shows-show">
         {/* error ternary starts here where useEffect is true error message pops up and if false following code executes. Need to import error message component and place prop in ternary */}
         {loadingErrorMovie ? (
@@ -84,7 +84,7 @@ const MoviesShowOne = () => {
             <aside>
               <button className="delete" onClick={handleDeleteMovie}>
                 {/* The handleDeleteMovie function does not require showId because it uses the id from the URL parameters (useParams()), which is the identifier of the show to delete. */}
-                Remove show
+                Remove Movie
               </button>
               {/* need to import Link to access component that takes you to an edit form where id is used to find specific movie to edit; useParams needs to be imported so id can be used as a parameter */}
               <Link to={`/movies/${id}/edit`}>

@@ -33,14 +33,16 @@ export default function ShowsForm() {
 
     fetch(`${URL}/shows/${id}`, options)
       .then((response) => response.json())
-      .then(() => navigate(`/shows/${id}`));
+      .then(() => navigate(`/shows/${id}`)); // don't need response.id because imported useParams maybe??
   }
+
   function handleTextChange(event) {
     setShow({
       ...show,
       [event.target.id]: event.target.value,
     });
   }
+  
   useEffect(() => {
     getOneShow(id)
       .then((response) => {
