@@ -28,7 +28,7 @@ export default function ShowsIndex() {
     setMovies(result);
   }
   useEffect(() => {
-    getAllMMovies()
+    getAllMovies()
       .then((data) => {
         setAllMovies(data)
         setMovies(data)
