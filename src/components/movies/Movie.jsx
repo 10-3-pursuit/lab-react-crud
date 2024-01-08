@@ -3,36 +3,34 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 
 const URL = import.meta.env.VITE_BASE_API_URL;
 
-import { getOneShow, destroyShow } from "../../api/fetch";
+import { getOneMovie, destroyMovie } from "../../api/fetch";
 
-import "./Show.css";
+import "./Movie.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
 
-function Show() {
+function Movie() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [show, setShow] = useState({});
+  const [movie, setMovie] = useState({});
   const [loadingError, setLoadingError] = useState(false);
 
-  // destructuring the show state so that we can be DRY in our JSX
   const {
-    // because there are two id variable, we will give this id key a new name, an alias, called showId
-    id: showId,
+    id: movieId,
     duration,
     listedIn,
     country,
     rating,
     dateAdded,
     description,
-  } = show;
-  // will handle on Thursday
+  } = movie;
+  
   function handleDelete() {
-    // const options = { method: "DELETE" };
-    // fetch(`${URL}/shows/${id}`, options)
-    destroyShow(id)
-      .then(() => navigate("/shows"))
+    const options = { method: "DELETE" };
+    fetch(`${URL}/movies/${id}`, options)
+    destroyMovie(id)
+      .then(() => navigate("/movies"))
       .catch((error) => {
         console.error(error);
         setLoadingError(true);
@@ -40,9 +38,9 @@ function Show() {
   }
 
   useEffect(() => {
-    getOneShow(id)
+    getOneMovie(id)
       .then((data) => {
-        setShow(data);
+        setMovie(data);
         if (Object.keys(data).length === 0) {
           setLoadingError(true);
         } else {
@@ -55,9 +53,9 @@ function Show() {
   }, [id]);
 
   return (
-    <section className="shows-show-wrapper">
-      <h2>{show.title}</h2>
-      <section className="shows-show">
+    <section className="movies-movie-wrapper">
+      <h2>{movie.title}</h2>
+      <section className="movies-movie">
         {loadingError ? (
           <ErrorMessage />
         ) : (
@@ -84,9 +82,9 @@ function Show() {
             </article>
             <aside>
               <button className="delete" onClick={handleDelete}>
-                Remove show
+                Remove movie
               </button>
-              <Link to={`/shows/${id}/edit`}>
+              <Link to={`/movies/${id}/edit`}>
                 <button>Edit</button>
               </Link>
             </aside>
@@ -97,4 +95,4 @@ function Show() {
   );
 }
 
-export default Show;
+export default Movie;
