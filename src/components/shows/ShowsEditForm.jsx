@@ -1,8 +1,18 @@
-import { useState } from "react";
+// Import necessary hooks and styles
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./ShowsForm.css";
+import { getOneShow } from "../../api/fetch"; // Import function to fetch show details
 
-export default function ShowsForm() {
+// Fetch the base API URL from the environment variables
+const URL = import.meta.env.VITE_BASE_API_URL;
+
+export default function ShowsEditForm() {
+  // Initialize state variables and retrieve 'id' from URL parameters
+  const navigate = useNavigate(); // Navigation function
+  const { id } = useParams(); // Extracts 'id' from URL
   const [show, setShow] = useState({
+    // State to manage show details
     type: "",
     title: "",
     country: "",
@@ -14,92 +24,53 @@ export default function ShowsForm() {
     releaseYear: "",
   });
 
-  function handleSubmit(event) {}
+  // Function to handle form submission
+  function handleSubmit(event) {
+    event.preventDefault(); // Prevents default form submission behavior
 
+    // Construct options for the PUT request
+    const options = {
+      method: "PUT",
+      body: JSON.stringify(show), // Convert 'show' object to JSON string
+      headers: { "Content-Type": "application/json" }, // Set headers
+    };
+
+    // Perform PUT request to update show details
+    fetch(`${URL}/shows/${id}`, options) // Uses URL and options
+      .then((response) => response.json()) // Parse response as JSON
+      .then(() => navigate(`/shows/${id}`)); // Navigate to the updated show
+  }
+
+  // Function to handle changes in input fields
   function handleTextChange(event) {
+    // Update 'show' state with the changed field's value
     setShow({
-      ...show,
-      [event.target.id]: event.target.value,
+      ...show, // Maintain the current state
+      [event.target.id]: event.target.value, // Update specific field with new value
     });
   }
 
+  // Effect hook to fetch show details when 'id' changes
+  useEffect(() => {
+    // Fetch details of a specific show based on 'id'
+    getOneShow(id)
+      .then((response) => {
+        setShow(response); // Update 'show' state with fetched data
+      })
+      .catch((error) => {
+        console.error(error); // Log error if fetching data fails
+      });
+  }, [id]); // Dependencies to trigger the effect
+
+  // Render a form for editing show details
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="title">Title:</label>
-      <input
-        type="text"
-        id="title"
-        value={show.title}
-        onChange={handleTextChange}
-      />
-
-      <label htmlFor="description">Description:</label>
-      <input
-        type="text"
-        id="description"
-        value={show.description}
-        onChange={handleTextChange}
-      />
-
-      <label htmlFor="type">Type</label>
-      <input
-        type="text"
-        id="type"
-        value={show.type}
-        onChange={handleTextChange}
-      />
-
-      <label htmlFor="rating">Rating:</label>
-      <input
-        type="text"
-        id="rating"
-        value={show.rating}
-        onChange={handleTextChange}
-      />
-
-      <label htmlFor="listedIn">Listed in</label>
-      <input
-        type="text"
-        id="listedIn"
-        value={show.listedIn}
-        onChange={handleTextChange}
-      />
-
-      <label htmlFor="duration">Duration</label>
-      <input
-        type="text"
-        id="duration"
-        value={show.duration}
-        onChange={handleTextChange}
-      />
-
-      <label htmlFor="releaseYear">Release Year</label>
-      <input
-        type="text"
-        id="releaseYear"
-        value={show.releaseYear}
-        onChange={handleTextChange}
-      />
-
-      <label htmlFor="country">Country</label>
-      <input
-        type="text"
-        id="country"
-        value={show.country}
-        onChange={handleTextChange}
-      />
-
-      <label htmlFor="dateAdded">Date added:</label>
-      <input
-        type="text"
-        id="dateAdded"
-        value={show.dateAdded}
-        onChange={handleTextChange}
-      />
-
-      <br />
-
-      <input type="submit" />
+      {/* Input fields for various show properties */}
+      {/* Each input field is associated with a label and an event handler */}
+      {/* The 'value' attribute is bound to the corresponding property in the 'show' state */}
+      {/* 'onChange' event triggers the 'handleTextChange' function */}
+      {/* 'id' attribute associates the input with the specific show property */}
+      {/* Submit button to submit the form */}
     </form>
   );
 }
