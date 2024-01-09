@@ -10,6 +10,9 @@ import ShowsEditForm from "./components/shows/ShowsEditForm";
 import ShowsIndex from "./components/shows/ShowsIndex";
 import ShowsNewForm from "./components/shows/ShowsNewForm";
 import MoviesIndex from "./components/movies/MoviesIndex";
+import Movie from "./components/movies/Movie";
+import MoviesNewForm from "./components/movies/MoviesNewForm";
+import MoviesEditForm from "./components/movies/MoviesEditForm";
 
 function App() {
   return (
@@ -23,7 +26,12 @@ function App() {
           <Route path=":id" element={<Show />} />
           <Route path=":id/edit" element={<ShowsEditForm />} />
         </Route>
-        <Route path="/movies" element={<MoviesIndex />} />
+        <Route path="/movies">
+          <Route index element={<MoviesIndex />} />
+          <Route path=":id" element={<Movie />} />
+          <Route path="new" element={<MoviesNewForm />} />
+          <Route path=":id/edit" element={<MoviesEditForm />} />
+        </Route>
       </Routes>
       <Footer />
     </div>
