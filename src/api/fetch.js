@@ -15,7 +15,8 @@ export function createShow(show) {
 
 // Delete
 export function destroyShow(id) {
-  return;
+  const options = { method: "DELETE" };
+  return fetch(`${URL}/api/shows/${id}`, options);
 }
 
 // Index/Get all

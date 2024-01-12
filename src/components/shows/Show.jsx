@@ -1,4 +1,4 @@
-import { getOneShow } from "../../api/fetch";
+import { getOneShow, destroyShow } from "../../api/fetch";
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
@@ -18,8 +18,7 @@ function Show() {
 
     // will handle on Thursday
     function handleDelete() {
-        const options = { method: "DELETE" };
-        return fetch(`${URL}/api/shows/${id}`, options)
+        destroyShow(id)
             .then(() => navigate("/shows"))
             .catch((error) => {
                 console.error(error);
