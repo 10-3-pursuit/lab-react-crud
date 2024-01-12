@@ -21,7 +21,6 @@ export default function ShowsForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
-
         createShow(show)
             .then((data) => navigate(`/shows/${data.id}`))
             .catch((error) => console.error(error));
