@@ -19,7 +19,7 @@ function Show() {
     // will handle on Thursday
     function handleDelete() {
         const options = { method: "DELETE" };
-        return fetch(`${URL}/shows/${id}`, options)
+        return fetch(`${URL}/api/shows/${id}`, options)
             .then(() => navigate("/shows"))
             .catch((error) => {
                 console.error(error);
