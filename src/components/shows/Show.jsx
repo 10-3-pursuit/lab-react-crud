@@ -6,8 +6,6 @@ import "./Show.css";
 
 import ErrorMessage from "../errors/ErrorMessage";
 
-const URL = import.meta.env.VITE_BASE_API_URL;
-
 function Show() {
     const [show, setShow] = useState({});
     const [loadingError, setLoadingError] = useState(false);
