@@ -8,7 +8,7 @@ export function createShow(show) {
     body: JSON.stringify(show),
     headers: { "Content-Type": "application/json" },
   };
-  return fetch(`${URL}/shows/`, options).then((response) => {
+  return fetch(`${URL}/api/shows/`, options).then((response) => {
     return response.json();
   });
 }
@@ -20,12 +20,12 @@ export function destroyShow(id) {
 
 // Index/Get all
 export function getAllShows() {
-  return fetch(`${URL}/shows`).then(response => response.json()); 
+  return fetch(`${URL}/api/shows`).then(response => response.json()); 
 }
 
 // Show/Get one
 export function getOneShow(id) {
-  return fetch(`${URL}/shows/${id}`).then((response) => response.json());
+  return fetch(`${URL}/api/shows/${id}`).then((response) => response.json());
 }
 
 // Update
@@ -35,7 +35,7 @@ export function updateShow(id, show) {
     body: JSON.stringify(show),
     headers: { "Content-Type": "application/json" },
   };
-  return fetch(`${URL}/shows/${id}`, options).then((response) => {
+  return fetch(`${URL}/api/shows/${id}`, options).then((response) => {
     return response.json();
   });
 }
@@ -43,7 +43,7 @@ export function updateShow(id, show) {
 // Movies
 
 export function getAllMovies() {
-  return fetch(`${URL}/movies`).then(response => response.json()); 
+  return fetch(`${URL}/api/movies`).then(response => response.json()); 
 }
 
 export function createMovie(movie) {
@@ -52,18 +52,18 @@ export function createMovie(movie) {
     body: JSON.stringify(movie),
     headers: { "Content-Type": "application/json" },
   };
-  return fetch(`${URL}/movies/`, options).then((response) => {
+  return fetch(`${URL}/api/movies/`, options).then((response) => {
     return response.json();
   });
 }
 
 export function destroyMovie(id) {
   const options = { method: "DELETE" };
-  return fetch(`${URL}/movies/${id}`, options);
+  return fetch(`${URL}/api/movies/${id}`, options);
 }
 
 export function getOneMovie(id) {
-  return fetch(`${URL}/movies/${id}`).then((response) => response.json());
+  return fetch(`${URL}/api/movies/${id}`).then((response) => response.json());
 }
 
 export function updateMovie(id, movie) {
@@ -72,7 +72,7 @@ export function updateMovie(id, movie) {
     body: JSON.stringify(movie),
     headers: { "Content-Type": "application/json" },
   };
-  return fetch(`${URL}/movies/${id}`, options).then((response) => {
+  return fetch(`${URL}/api/movies/${id}`, options).then((response) => {
     return response.json();
   });
 }
