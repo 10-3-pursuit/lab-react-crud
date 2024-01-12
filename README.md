@@ -22,7 +22,7 @@ You've been hired to build out _ScreenViews_, a website dedicated to rating show
 
 1. Deploy this application to Netlify and add the link to your netlify site below:
 
-- [MY LIVE SITE URL]()
+- [https://vermillion-creponne-632a85.netlify.app](https://vermillion-creponne-632a85.netlify.app)
 
 ### API for this lab
 

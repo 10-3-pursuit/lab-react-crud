@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Components
@@ -11,21 +10,21 @@ import ShowsIndex from "./components/shows/ShowsIndex";
 import ShowsNewForm from "./components/shows/ShowsNewForm";
 
 function App() {
-  return (
-    <div className="wrapper">
-      <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shows" >
-          <Route index element={<ShowsIndex />} />
-          <Route path='new' element={<ShowsNewForm />} />
-          <Route path=":id" element={<Show />} />
-          <Route path=":id/edit" element={<ShowsEditForm />} />
-        </Route>
-      </Routes>
-      <Footer />
-    </div>
-  );
+    return (
+        <div className="wrapper">
+            <Nav />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/shows">
+                    <Route index element={<ShowsIndex />} />
+                    <Route path="new" element={<ShowsNewForm />} />
+                    <Route path=":id" element={<Show />} />
+                    <Route path=":id/edit" element={<ShowsEditForm />} />
+                </Route>
+            </Routes>
+            <Footer />
+        </div>
+    );
 }
 
 export default App;
