@@ -1,23 +1,21 @@
-import { getOneShow, destroyShow } from "../../api/fetch";
-import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-import "./Show.css";
-
 import ErrorMessage from "../errors/ErrorMessage";
+import { useState, useEffect } from "react";
 
-function Show() {
-    const [show, setShow] = useState({});
+import { destroyMovie, getOneMovie } from "../../api/fetch";
+
+const Movie = () => {
+    const [movie, setMovie] = useState({});
     const [loadingError, setLoadingError] = useState(false);
 
     const navigate = useNavigate();
 
     const { id } = useParams();
 
-    // will handle on Thursday
     function handleDelete() {
-        destroyShow(id)
-            .then(() => navigate("/shows"))
+        destroyMovie(id)
+            .then(() => navigate("/movies"))
             .catch((error) => {
                 console.error(error);
                 setLoadingError(true);
@@ -25,8 +23,8 @@ function Show() {
     }
 
     useEffect(() => {
-        getOneShow(id).then((data) => {
-            setShow(data);
+        getOneMovie(id).then((data) => {
+            setMovie(data);
             if (Object.keys(data).length === 0) {
                 setLoadingError(true);
             } else {
@@ -37,7 +35,7 @@ function Show() {
 
     return (
         <section className="shows-show-wrapper">
-            <h2>{show.title}</h2>
+            <h2>{movie.title}</h2>
             <section className="shows-show">
                 {loadingError ? (
                     <ErrorMessage />
@@ -45,32 +43,32 @@ function Show() {
                     <>
                         <aside>
                             <p>
-                                <span>Duration:</span> {show.duration}
+                                <span>Duration:</span> {movie.duration}
                             </p>
                             <p>
-                                <span>Listed Categories:</span> {show.listedIn}
+                                <span>Listed Categories:</span> {movie.listedIn}
                             </p>
                             <p>
-                                <span>Country:</span> {show.country}
+                                <span>Country:</span> {movie.country}
                             </p>
                             <p>
-                                <span>Rating:</span> {show.rating}
+                                <span>Rating:</span> {movie.rating}
                             </p>
                             <p>
-                                <span>Date Added:</span> {show.dateAdded}
+                                <span>Date Added:</span> {movie.dateAdded}
                             </p>
                         </aside>
                         <article>
-                            <p>{show.description}</p>
+                            <p>{movie.description}</p>
                         </article>
                         <aside>
                             <button
                                 className="delete"
                                 onClick={() => handleDelete()}
                             >
-                                Remove show
+                                Remove movie
                             </button>
-                            <Link to={`/shows/${id}/edit`}>
+                            <Link to={`/movies/${id}/edit`}>
                                 <button>Edit</button>
                             </Link>
                         </aside>
@@ -79,6 +77,6 @@ function Show() {
             </section>
         </section>
     );
-}
+};
 
-export default Show;
+export default Movie;

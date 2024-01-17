@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import "./ShowsForm.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createMovie } from "../../api/fetch";
 
-import { updateShow, getOneShow } from "../../api/fetch";
-
-export default function ShowsForm() {
-    const [show, setShow] = useState({
+const MoviesNewForm = () => {
+    const [movie, setMovie] = useState({
         type: "",
         title: "",
         country: "",
@@ -18,30 +16,20 @@ export default function ShowsForm() {
     });
 
     const navigate = useNavigate();
-    const { id } = useParams();
 
     function handleSubmit(event) {
         event.preventDefault();
-
-        updateShow(id, show)
-            .then(() => {
-                navigate(`/shows/${id}`);
-            })
+        createMovie(movie)
+            .then((data) => navigate(`/movies/${data.id}`))
             .catch((error) => console.error(error));
     }
 
     function handleTextChange(event) {
-        setShow({
-            ...show,
+        setMovie({
+            ...movie,
             [event.target.id]: event.target.value,
         });
     }
-
-    useEffect(() => {
-        getOneShow(id)
-            .then((response) => setShow(response))
-            .catch((error) => console.error(error));
-    }, [id]);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -49,7 +37,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="title"
-                value={show.title}
+                value={movie.title}
                 onChange={handleTextChange}
             />
 
@@ -57,7 +45,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="description"
-                value={show.description}
+                value={movie.description}
                 onChange={handleTextChange}
             />
 
@@ -65,7 +53,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="type"
-                value={show.type}
+                value={movie.type}
                 onChange={handleTextChange}
             />
 
@@ -73,7 +61,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="rating"
-                value={show.rating}
+                value={movie.rating}
                 onChange={handleTextChange}
             />
 
@@ -81,7 +69,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="listedIn"
-                value={show.listedIn}
+                value={movie.listedIn}
                 onChange={handleTextChange}
             />
 
@@ -89,7 +77,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="duration"
-                value={show.duration}
+                value={movie.duration}
                 onChange={handleTextChange}
             />
 
@@ -97,7 +85,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="releaseYear"
-                value={show.releaseYear}
+                value={movie.releaseYear}
                 onChange={handleTextChange}
             />
 
@@ -105,7 +93,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="country"
-                value={show.country}
+                value={movie.country}
                 onChange={handleTextChange}
             />
 
@@ -113,7 +101,7 @@ export default function ShowsForm() {
             <input
                 type="text"
                 id="dateAdded"
-                value={show.dateAdded}
+                value={movie.dateAdded}
                 onChange={handleTextChange}
             />
 
@@ -122,4 +110,6 @@ export default function ShowsForm() {
             <input type="submit" />
         </form>
     );
-}
+};
+
+export default MoviesNewForm;
